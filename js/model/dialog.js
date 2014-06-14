@@ -21,7 +21,7 @@ Dialog.prototype = {
             this.content = this.game.add.sprite(this.x +40, this.y +30, contentKey);    
         }else{
             this.content = this.game.add.text(this.x +40, this.y +30, contentKey);
-            this.content.fontSize = 20;
+            this.content.fontSize = 17;
         }
         
 

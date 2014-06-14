@@ -18,7 +18,7 @@ createPuzzle : function(){
     Phaser.Canvas.addToDOM(puzzleCanvas, document.body, true);
     createPuzzle(puzzleCanvas, 'images/rompecabezas/secuencia-caballo-con-ayuda.jpg');
     
-    flecha = this.add.sprite(0, 0, 'flecha');
+    flecha = this.game.add.sprite(0, 0, 'flecha');
     flecha.inputEnabled = true;
     flecha.events.onInputDown.add(removePuzzle);
     
@@ -70,7 +70,7 @@ update : function(){
     }
     
     if(isNearVendedor){
-        this.vendedor.dialog.say('Mi Zootropo se rompio.\n¿Podrías ayudarme?', true);
+        this.vendedor.dialog.say('Mi Zootropo\nse rompio.\nPodrias ayudarme?', true);
         emilioCanMove = false;
         var emilio = this.emilio;
         var vendedor = this.vendedor;
@@ -82,14 +82,14 @@ update : function(){
                 var puzzle = puzzleFunction();
                 puzzle.addEventListener("win", function(){
                     emilioCanMove = true;
-                    vendedor.dialog.say('Muy bien!.\nGracias!', true);
+                    vendedor.dialog.say('Muy bien! Gracias!\nToma esto como\nrecompensa.', true);
                 }, false);
                 puzzle.addEventListener("lose", function(){
                     emilioCanMove = true;
-                    vendedor.dialog.say('No puedes?.\nMira bien los números.', true);
+                    vendedor.dialog.say('No puedes?\nMira bien los\nnumeros.', true);
                 }, false);
             } else {
-                vendedor.dialog.say('Que lastima :(\nAdios!.', true);
+                vendedor.dialog.say('Que lastima :(\nAdios!', true);
                 emilioCanMove = true;
             }
         }, 500);
