@@ -1,0 +1,210 @@
+<!doctype html> 
+<html lang="en"> 
+<head> 
+	<meta charset="UTF-8" />
+    <title>Proyecto Tren - Matamoscas</title>
+	<script type="text/javascript" src="js/lib/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+/** Game init **/
+
+var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update });
+
+/** End of game init **/
+
+/** Variable declaration **/
+
+var platforms;
+var cursors;
+var moscas = [];
+var score = 0;
+var scoreText;
+var numDeMoscas = 10;
+
+
+/** End of variable declaration **/
+
+/** Utils **/
+
+var video = function(src){
+    var v2 = document.createElement("video");
+    
+    v2.src = src;
+    v2.width = 800;
+    v2.height = 600;
+    v2.id = 'video';
+    v2.loop = false;
+    v2.autoplay = false;
+    v2.controls = true;
+    
+    
+    v2.destroy = function(){
+        document.body.removeChild(v2);  
+    };
+    
+    v2.reproduce = function(){
+        document.body.appendChild(v2);
+        v2.play();
+    };
+    
+    return v2;
+};
+
+/** End utils **/
+
+/** Object declaration **/
+
+var MoscaVoladora = function(sprite){
+	this.x = game.world.randomX;
+	this.y = game.world.randomY;
+	this.minSpeed = -75;
+	this.maxSpeed = 75;
+	this.vx = Math.random()*(this.maxSpeed - this.minSpeed+1)-this.minSpeed;
+	this.vy = Math.random()*(this.maxSpeed - this.minSpeed+1)-this.minSpeed;
+	
+	this.moscaSprite = game.add.sprite(this.x,this.y,sprite);
+	game.physics.arcade.enable(this.moscaSprite);
+	this.moscaSprite.isAlive = true;
+	this.moscaSprite.enableBody = true;
+	this.moscaSprite.inputEnabled = true;
+	
+    this.moscaSprite.anchor.setTo(0.5, 1);
+	this.moscaSprite.body.collideWorldBounds = true;
+	this.moscaSprite.body.bounce.setTo(1, 1);
+	this.moscaSprite.body.velocity.x = this.vx;
+	this.moscaSprite.body.velocity.y = this.vy;
+	this.moscaSprite.body.immovable = true;
+	
+	this.moscaSprite.events.onInputDown.add(function(mosca){
+        if (mosca.isAlive){
+            mosca.angle = 180;
+            mosca.body.velocity.x = 0;
+            mosca.body.velocity.y = 0;
+            mosca.body.gravity.y = 2000;
+            mosca.body.bounce.setTo(0, 0);
+            score += 10;
+            scoreText.text = 'Score: ' + score;
+            setTimeout(function(){
+                mosca.kill();
+            },5000);    
+        }
+		mosca.isAlive = false;
+	},this);
+	
+	return this.moscaSprite;
+};
+
+var MoscaMinigame = function(){
+    // Para limpiar todo de la pantalla anterior
+    game.state.start('MoscaMinigame', true, true);
+    //  We're going to be using physics, so enable the Arcade Physics system
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    score = 0;
+
+    //  A simple background for our game
+    game.add.sprite(0, 0, 'background');
+	
+	
+	//  Here we'll create 12 of them evenly spaced apart
+    for (var i = 1; i < numDeMoscas; i++)
+    {
+        var moscanum = Math.floor((Math.random()*4)+1);
+        moscas.push(new MoscaVoladora('mosca' + moscanum));
+    }
+    
+    var flechaAtras = game.add.sprite(0, 550, 'atras');
+	flechaAtras.inputEnabled = true;
+	flechaAtras.events.onInputDown.add(function(sprite){
+        new VagonTren();
+    });
+	
+    //  The score
+    scoreText = game.add.text(16, 16, 'Score: '+score, { fontSize: '32px', fill: '#000' });
+
+    //  Our controls.
+    cursors = game.input.keyboard.createCursorKeys();
+};
+
+var VideoLaPlata = function(){
+    game.canvas.style.display = "none";
+    var vid = new video("images/trenlp.mp4");
+    vid.onended = function(e){
+        vid.destroy();
+        game.canvas.style.display = "block";
+    };
+    vid.reproduce();
+};
+
+var VagonTren = function(){
+    // Para limpiar todo de la pantalla anterior
+    game.state.start('VagonTren', true, true);
+    //  We're going to be using physics, so enable the Arcade Physics system
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    //  A simple background for our game
+    game.add.sprite(0, 0, 'background');
+    
+    var mosca = game.add.sprite(50, 50, 'minimosca');
+    mosca.inputEnabled = true;
+    
+    var camara = game.add.sprite(400, 400, 'camara');
+    camara.inputEnabled = true;
+    
+    mosca.events.onInputDown.add(function(sprite){
+        game.world.shutdown();
+        new MoscaMinigame();
+    });
+    
+    camara.events.onInputDown.add(function(sprite){
+        new VideoLaPlata();
+    });
+};
+
+/** End of object declaration **/
+
+function preload() {
+    game.load.image('background', 'images/traindinner.png');
+    game.load.image('atras', 'images/arrow_back.png');
+    game.load.image('ground', 'images/platform.png');
+	game.load.image('minimosca', 'images/minimosca.png');
+	game.load.image('camara', 'images/camara.png');
+	game.load.image('explosion', 'images/explosion.png');
+	
+    game.load.image('mosca1', 'images/moscas/mosca1.png');
+    game.load.image('mosca2', 'images/moscas/mosca2.png'); 
+    game.load.image('mosca3', 'images/moscas/mosca3.png'); 
+	game.load.image('mosca4', 'images/moscas/mosca4.png'); 
+    
+}
+
+
+function create() {
+    new VagonTren();
+    
+}
+
+function update() {
+	moscas.forEach(function(mosca) {
+        if (mosca.position.x < 35){
+            mosca.scale.x = 1;
+        }
+        if (mosca.position.x > 760){
+            mosca.scale.x = -1;
+        } 
+    });
+    
+}
+
+</script>
+
+</body>
+</html>
