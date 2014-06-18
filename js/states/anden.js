@@ -8,6 +8,11 @@ var cantVagones = 2;
  */
 var bounds;
 
+/**
+ * Puede moverse?
+ */
+var emilioCanMove;
+
 var Anden = function(game, trainSprite, floorSprite){
     //  We're going to be using physics, so enable the Arcade Physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -72,6 +77,8 @@ States.AndenState.prototype = {
     },
     
     create : function(){
+    	emilioCanMove = true;
+    	
         // Creamos el anden
         this.anden = new Anden(this, 'tren', 'floor');
         
@@ -96,19 +103,21 @@ States.AndenState.prototype = {
         var isEmilioOnTheFloor = this.physics.arcade.collide(this.emilio, this.anden.floor);
         
         //Emilio solamente se mueve si esta en el piso.
-        if  (isEmilioOnTheFloor){
+        if  (isEmilioOnTheFloor && emilioCanMove){
             if (this.cursors.up.isDown)
             {
-                this.emilio.shutUp();
                 var marcoIzq = this.anden.train.vagones.vagon2.x + 200;
                 var marcoDer = this.anden.train.vagones.vagon2.x + 255;
                 if ((this.emilio.x > marcoIzq) && (this.emilio.x < marcoDer)){
-                    this.emilio.stand();
+                	emilioCanMove = false;
+                	var emilio = this.emilio;
+                	emilio.body.velocity.x = 0;
                     this.emilio.loadTexture('emilioEspaldas');
-                    var emilio = this.emilio;
                     setTimeout(function(){
+                    	emilio.body.velocity.x = 0;
                         emilio.body.velocity.y = -200;
                         setTimeout(function(){
+                        	emilio.body.velocity.x = 0;
                             emilio.body.velocity.y = -200;
                             setTimeout(function(){
                                 game.state.start('VagonState');
