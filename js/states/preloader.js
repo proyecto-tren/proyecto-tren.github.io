@@ -30,6 +30,8 @@ States.PreloaderState.prototype = {
         this.load.image('locomotora', 'images/tren/locomotora.png');
         this.load.image('emilio', 'images/emilio.png');
         this.load.image('camara', 'images/camara.png');
+        this.load.image('mamadera', 'images/mamadera.png');
+        this.load.image('cenicero', 'images/cenicero.png');
         
         this.load.image('minimosca', 'images/minimosca.png');
         this.load.image('mosca1', 'images/moscas/mosca1.png');

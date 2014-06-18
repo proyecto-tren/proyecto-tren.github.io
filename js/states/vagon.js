@@ -5,6 +5,10 @@ var moscas = [];
 var mosquitas = [];
 var scoreText;
 var minimosca;
+//Variable que controla si ya vio el video de la mamadera.
+var vioMamadera = false;
+//Variable que controla si ya vio el video del cenicero.
+var vioCenicero = false;
 
 States.VagonState = function(game){};
 
@@ -53,6 +57,31 @@ States.VagonState.prototype = {
         //  Our controls.
         this.cursors = this.input.keyboard.createCursorKeys();
         
+        //Creamos la mamadera con el video
+        var mamadera = this.add.sprite(530, 340, 'mamadera');
+        mamadera.inputEnabled = true;
+        mamadera.events.onInputDown.add(function(sprite){
+            new Video(this.game, 'videos/mamadera.mp4');
+            if (!vioMamadera){
+            	vioMamadera = true;
+            	score += 50;
+                scoreText.text = 'Puntaje: ' + score;
+            }
+            
+        });
+        
+        var cenicero = this.add.sprite(1100, 370, 'cenicero');
+        cenicero.inputEnabled = true;
+        cenicero.events.onInputDown.add(function(sprite){
+            new Video(this.game, 'videos/cenicero.mp4');
+            if (!vioCenicero){
+            	vioCenicero = true;
+            	score += 50;
+                scoreText.text = 'Puntaje: ' + score;
+            }
+            
+        });
+        
         //Creamos a Emilio
         this.emilio = new Emilio(this, 'emilio');
         
@@ -60,7 +89,7 @@ States.VagonState.prototype = {
         this.camera.follow(this.emilio);
         
         //  The score
-        scoreText = this.add.text(16, 16, 'Score: '+score, { fontSize: '32px', fill: '#000' });
+        scoreText = this.add.text(16, 16, 'Puntaje: '+score, { fontSize: '32px', fill: '#000' });
         
         //this.paredIzq = new Pared(this, 'pared', -50);
         this.paredDer = new Pared(this, 'pared', 1550);
@@ -74,13 +103,6 @@ States.VagonState.prototype = {
             States.VagonState.prototype.createMoscas(game);
         });
         
-        var camara = this.add.sprite(750, 420, 'camara');
-        camara.inputEnabled = true;
-        camara.events.onInputDown.add(function(sprite){
-            new Video(this.game, 'images/trenlp.mp4');
-            score += 50;
-            scoreText.text = 'Score: ' + score;
-        });
         States.VagonState.prototype.createMosquitas(game);
     },
     
@@ -89,7 +111,7 @@ States.VagonState.prototype = {
         this.physics.arcade.collide(this.emilio, this.paredDer);
         var isEmilioOnTheFloor = this.physics.arcade.collide(this.emilio, this.piso);
         
-        //Si salió del vagón
+        //Si salio del vagon
         if (this.emilio.x < 0){
             this.state.start('AndenState');
         }
