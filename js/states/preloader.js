@@ -29,9 +29,9 @@ States.PreloaderState.prototype = {
         this.load.image('floor', 'images/platform.png');
         this.load.image('locomotora', 'images/tren/locomotora.png');
         this.load.image('emilio', 'images/emilio.png');
-        this.load.image('camara', 'images/camara.png');
         this.load.image('mamadera', 'images/mamadera.png');
         this.load.image('cenicero', 'images/cenicero.png');
+        this.load.image('copa', 'images/copa.png');
         
         this.load.image('minimosca', 'images/minimosca.png');
         this.load.image('mosca1', 'images/moscas/mosca1.png');
@@ -81,6 +81,7 @@ States.PreloaderState.prototype = {
 		if (this.cache.isSoundDecoded('musica') && this.ready == false)
 		{
 			this.ready = true;
+//			this.state.start('VagonState');
 			this.state.start('MenuState');
 		}
 

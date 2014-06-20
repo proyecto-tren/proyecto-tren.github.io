@@ -41,11 +41,10 @@ var Mosquita = function(game, sprite){
 	this.maxSpeed = 300;
 	this.vx = Math.random()*(this.maxSpeed - this.minSpeed+1)-this.minSpeed;
 	this.vy = 0;
-	
-	this.moscaSprite = game.add.sprite(50,50,sprite);
+
+	this.moscaSprite = game.add.sprite(0,0,sprite);
 	game.physics.arcade.enable(this.moscaSprite);
 	this.moscaSprite.enableBody = true;
-	this.moscaSprite.inputEnabled = true;
 
     this.moscaSprite.anchor.setTo(0.5, 1);
 	this.moscaSprite.body.collideWorldBounds = true;
@@ -53,6 +52,6 @@ var Mosquita = function(game, sprite){
 	this.moscaSprite.body.velocity.x = this.vx;
 	this.moscaSprite.body.velocity.y = this.vy;
 	this.moscaSprite.body.immovable = true;
-
+	this.moscaSprite.scale.x = -1;
 	return this.moscaSprite;
 };

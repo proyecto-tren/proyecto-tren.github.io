@@ -1,20 +1,38 @@
-var numDeMoscas = 10;
+var numDeMoscas = 5;
+var moscasMuertas
 var moscasMuertas;
 var numDeMosquitas = 3;
 var moscas = [];
 var mosquitas = [];
 var scoreText;
+var timerText;
 var minimosca;
 //Variable que controla si ya vio el video de la mamadera.
 var vioMamadera = false;
 //Variable que controla si ya vio el video del cenicero.
 var vioCenicero = false;
+//Variable que controla si ya vio el video de la copa.
+var vioCopa = false;
+//Timer que se usara en el minijuego de moscas
+var timer;
+//Cuantos segundos le damos al jugador para matar a todas las moscas.
+var tiempoMinijuegoMosca = 30;
 
-States.VagonState = function(game){};
+States.VagonState = function(game){
+};
 
 States.VagonState.prototype = {
-    
+	createTimer: function(game, funcion){
+		timer = game.time.create(game);
+		timer.add(tiempoMinijuegoMosca * 1000,funcion,this);
+	//  The time
+        timerText = game.add.text(16, 50, 'Tiempo: '+Math.ceil(tiempoMinijuegoMosca - timer.seconds), { fontSize: '32px', fill: '#000' });
+        timerText.fixedToCamera = true;
+		timer.start();
+	},
+	
     createMoscas: function(game){
+    	
         moscasMuertas = 0;
         for (var i = 1; i <= numDeMoscas; i++)
         {
@@ -24,15 +42,37 @@ States.VagonState.prototype = {
                 score += 10;
                 scoreText.text = 'Score: ' + score;
                 if (++moscasMuertas == numDeMoscas){
-                    minimosca.kill();
                     mosquitas.forEach(function(mosquita) {
                         mosquita.kill(); 
                     });
+                    ganoMinijuegoMosca = true;
+                    timer.destroy();
+                    timer = null;
+            		timerText.text = '';
+                    alert("¡Has salvado el vagón!");
                 }
             });
             moscas.push(mosca);
         }
     },
+    
+    enableMoscaGame: function(game) {
+    	minimosca = game.add.sprite(100, game.camera.y + 75, 'minimosca');
+        minimosca.inputEnabled = true;
+        minimosca.fixedToCamera = true;
+        minimosca.events.onInputDown.add(function(sprite){
+        	var accept = confirm("¡El vagón se ha llenado de moscas! Ayuda a Emilio a matarlas haciendo click sobre ellas.\n¿Comenzar el juego?");
+        	if (accept){
+        		States.VagonState.prototype.createTimer(game,function(){
+    				alert("Las moscas han tomado el control del vagón :(\nInténtalo nuevamente.");
+        			game.state.restart();	
+        		});
+        		minimosca.kill();
+        		States.VagonState.prototype.createMoscas(game);
+        	}
+            
+        });
+	},
     
     createMosquitas: function(game){
         for (var i = 1; i <= numDeMosquitas; i++)
@@ -41,13 +81,11 @@ States.VagonState.prototype = {
         }
     },
     
-
     preload : function(){
         
     },
     
     create : function(){
-        
         this.physics.startSystem(Phaser.Physics.ARCADE);
         
         this.world.setBounds(0, 0, 1600, 600);
@@ -66,11 +104,13 @@ States.VagonState.prototype = {
             	vioMamadera = true;
             	score += 50;
                 scoreText.text = 'Puntaje: ' + score;
+                if ((minimosca != null) && (score == 100)) States.VagonState.prototype.enableMoscaGame(game);
             }
             
         });
         
-        var cenicero = this.add.sprite(1100, 370, 'cenicero');
+        //Creamos el cenicero con el video
+        var cenicero = this.add.sprite(1200, 370, 'cenicero');
         cenicero.inputEnabled = true;
         cenicero.events.onInputDown.add(function(sprite){
             new Video(this.game, 'videos/cenicero.mp4');
@@ -78,6 +118,21 @@ States.VagonState.prototype = {
             	vioCenicero = true;
             	score += 50;
                 scoreText.text = 'Puntaje: ' + score;
+                if ((minimosca != null) && (score == 100) && (!ganoMinijuegoMosca)) States.VagonState.prototype.enableMoscaGame(game);
+            }
+            
+        });
+        
+        //Creamos el cenicero con el video
+        var copa = this.add.sprite(1100, 350, 'copa');
+        copa.inputEnabled = true;
+        copa.events.onInputDown.add(function(sprite){
+            new Video(this.game, 'videos/copa.mp4');
+            if (!vioCopa){
+            	vioCopa = true;
+            	score += 50;
+                scoreText.text = 'Puntaje: ' + score;
+                if ((minimosca == null) && (score == 100) && (!ganoMinijuegoMosca)) States.VagonState.prototype.enableMoscaGame(game);
             }
             
         });
@@ -88,22 +143,19 @@ States.VagonState.prototype = {
         // Hacemos que la camara siga a Emilio a donde vaya
         this.camera.follow(this.emilio);
         
-        //  The score
-        scoreText = this.add.text(16, 16, 'Puntaje: '+score, { fontSize: '32px', fill: '#000' });
-        
         //this.paredIzq = new Pared(this, 'pared', -50);
         this.paredDer = new Pared(this, 'pared', 1550);
         this.piso = new Pared(this, 'pared', 0, 590);
         this.piso.angle = 90;
         this.piso.scale.setTo(1900,0);
         
-        minimosca = this.game.add.sprite(50, 50, 'minimosca');
-        minimosca.inputEnabled = true;
-        minimosca.events.onInputDown.add(function(sprite){
-            States.VagonState.prototype.createMoscas(game);
-        });
-        
         States.VagonState.prototype.createMosquitas(game);
+    //  The score
+        scoreText = this.add.text(16, 16, 'Puntaje: '+score, { fontSize: '32px', fill: '#000' });
+        scoreText.fixedToCamera = true;
+        
+        if ((score >= 100) && (!ganoMinijuegoMosca)) States.VagonState.prototype.enableMoscaGame(game);
+        
     },
     
     update : function(){
@@ -150,6 +202,10 @@ States.VagonState.prototype = {
                 mosca.scale.x = -1;
             } 
         }, this, false);
+        
+        if(timer != null){
+        	timerText.text = 'Tiempo: ' + Math.ceil(tiempoMinijuegoMosca - timer.seconds);
+        }
     }
 
 };

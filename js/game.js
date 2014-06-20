@@ -12,3 +12,4 @@ var States = {};
  * Variables globales a todos los estados del juego
  */
 var score = 0;
+var ganoMinijuegoMosca = false;
