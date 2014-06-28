@@ -49,6 +49,11 @@ States.PreloaderState.prototype = {
             this.load.image('vagon'+i, 'images/tren/vagon'+ i +'.png');
         }
         
+        for (var i=0;i<=9;i++)
+        { 
+            this.load.image('numero'+i, 'images/numeros/numero'+ i +'.jpeg');
+        }
+        
         this.load.image('ticketOffice', 'images/ticketOffice.jpg');
         this.load.image('cartel', 'images/sign.png');
         this.load.image('vendedor', 'images/vendeilusiones.png');
