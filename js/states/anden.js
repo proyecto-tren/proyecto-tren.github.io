@@ -86,7 +86,7 @@ States.AndenState.prototype = {
         this.cursors = this.input.keyboard.createCursorKeys();
         
         //Creamos a Emilio
-        this.emilio = new Emilio(this, 'emilio');
+        this.emilio = new Emilio(this.game);
         
         // Hacemos que la camara siga a Emilio a donde vaya
         this.camera.follow(this.emilio);
@@ -112,6 +112,7 @@ States.AndenState.prototype = {
                 	emilioCanMove = false;
                 	var emilio = this.emilio;
                 	emilio.body.velocity.x = 0;
+                	emilio.animations.stop();
                     this.emilio.loadTexture('emilioEspaldas');
                     setTimeout(function(){
                     	emilio.body.velocity.x = 0;

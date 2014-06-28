@@ -55,7 +55,7 @@ create : function(){
     this.cartel.scale.x = -1;
     
     //Creamos a Emilio
-    this.emilio = new Emilio(this, 'emilio', 700, 250);
+    this.emilio = new Emilio(this.game, 700, 250);
     this.emilioCanMove = true;
     this.pared = new Pared(this, 'pared', 150);
     

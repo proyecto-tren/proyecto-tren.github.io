@@ -28,7 +28,9 @@ States.PreloaderState.prototype = {
         this.load.image('pared', 'images/pared.png');
         this.load.image('floor', 'images/platform.png');
         this.load.image('locomotora', 'images/tren/locomotora.png');
-        this.load.image('emilio', 'images/emilio.png');
+//        this.load.image('emilio', 'images/emilio.png');
+        
+        this.load.spritesheet('emilio', 'images/emilio-caminando.png', 144, 323);
         this.load.image('mamadera', 'images/mamadera.png');
         this.load.image('cenicero', 'images/cenicero.png');
         this.load.image('copa', 'images/copa.png');
@@ -40,12 +42,8 @@ States.PreloaderState.prototype = {
         this.load.image('mosca4', 'images/moscas/mosca4.png');
         
         this.load.image('sky', 'images/sky.png');
-        this.load.image('pared', 'images/pared.png');
-        this.load.image('floor', 'images/platform.png');
         this.load.image('locomotora', 'images/tren/locomotora.png');
-        this.load.image('emilio', 'images/emilio.png');
         this.load.image('emilioEspaldas', 'images/emilio-espaldas.png');
-        this.load.image('cartel', 'images/sign.png');
         for (var i=2;i<=3;i++)
         { 
             this.load.image('vagon'+i, 'images/tren/vagon'+ i +'.png');

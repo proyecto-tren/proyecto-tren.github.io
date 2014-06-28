@@ -138,7 +138,7 @@ States.VagonState.prototype = {
         });
         
         //Creamos a Emilio
-        this.emilio = new Emilio(this, 'emilio');
+        this.emilio = new Emilio(this.game);
         
         // Hacemos que la camara siga a Emilio a donde vaya
         this.camera.follow(this.emilio);
