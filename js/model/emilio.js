@@ -33,7 +33,7 @@ Emilio = function(game, x, y) {
 
 	emilio.stand = function() {
 		emilio.animations.stop();
-		emilio.frame = 8; 
+//		emilio.frame = 8; 
 		emilio.body.velocity.x = 0;
 	};
 
