@@ -18,6 +18,7 @@ var timer;
 var tiempoActual;
 // Cuantos segundos le damos al jugador para matar a todas las moscas.
 var tiempoMinijuegoMosca = 30;
+var siluetas = [];
 
 States.VagonState = function(game) {
 };
@@ -50,7 +51,7 @@ States.VagonState.prototype = {
 					timer.destroy();
 					timer = null;
 					timerText.destroy();
-					alert("¡Has salvado el vagón!");
+					alert("\xa1Has salvado el vag\xf3n!");
 				}
 			});
 			moscas.push(mosca);
@@ -63,13 +64,13 @@ States.VagonState.prototype = {
 		minimosca.fixedToCamera = true;
 		minimosca.events.onInputDown
 				.add(function(sprite) {
-					var accept = confirm("¡El vagón se ha llenado de moscas! Ayuda a Emilio a matarlas haciendo click sobre ellas.\n¿Comenzar el juego?");
+					var accept = confirm("\xa1El vag\xf3n se ha llenado de moscas! Ayuda a Emilio a matarlas haciendo click sobre ellas.\n\xbfComenzar el juego?");
 					if (accept) {
 						States.VagonState.prototype
 								.createTimer(
 										game,
 										function() {
-											alert("Las moscas han tomado el control del vagón :(\nInténtalo nuevamente.");
+											alert("Las moscas han tomado el control del vag\xf3n :(\nInt\xe9ntalo nuevamente.");
 											game.state.restart();
 										});
 						minimosca.kill();
@@ -86,22 +87,9 @@ States.VagonState.prototype = {
 		}
 	},
 
-	preload : function() {
-
-	},
-
-	create : function() {
-		this.physics.startSystem(Phaser.Physics.ARCADE);
-
-		this.world.setBounds(0, 0, 1600, 600);
-
-		this.vagon = game.add.sprite(0, 0, 'vagon');
-
-		// Our controls.
-		this.cursors = this.input.keyboard.createCursorKeys();
-
+	renderVideoObjects : function(game) {
 		// Creamos la mamadera con el video
-		var mamadera = this.add.sprite(530, 340, 'mamadera');
+		var mamadera = game.add.sprite(480, 340, 'mamadera');
 		mamadera.inputEnabled = true;
 		mamadera.events.onInputDown.add(function(sprite) {
 			new Video(this.game, 'videos/mamadera.mp4');
@@ -116,7 +104,7 @@ States.VagonState.prototype = {
 		});
 
 		// Creamos el cenicero con el video
-		var cenicero = this.add.sprite(1200, 370, 'cenicero');
+		var cenicero = game.add.sprite(540, 370, 'cenicero');
 		cenicero.inputEnabled = true;
 		cenicero.events.onInputDown.add(function(sprite) {
 			new Video(this.game, 'videos/cenicero.mp4');
@@ -132,7 +120,7 @@ States.VagonState.prototype = {
 		});
 
 		// Creamos el cenicero con el video
-		var copa = this.add.sprite(1100, 350, 'copa');
+		var copa = game.add.sprite(1050, 350, 'copa');
 		copa.inputEnabled = true;
 		copa.events.onInputDown.add(function(sprite) {
 			new Video(this.game, 'videos/copa.mp4');
@@ -146,6 +134,54 @@ States.VagonState.prototype = {
 			}
 
 		});
+		var x = 1130;
+		var y = 330;
+		var scale = -1;
+		
+		for (var i = 1; i <= 4; i++) {
+			siluetas[i] = game.add.sprite(x, y, 'silueta');
+			siluetas[i].scale.x = scale;
+			siluetas[i].inputEnabled = true;
+			siluetas[i].visto = false;
+			siluetas[i].index = i;
+			siluetas[i].events.onInputDown.add(function(sprite) {
+				new Video(this.game, 'videos/silueta'+ sprite.index +'.mp4');
+				if (!sprite.visto) {
+					sprite.visto = true;
+					score += 50;
+					scoreText.text = 'Puntaje: ' + score;
+					if ((minimosca == null) && (score == 100)
+							&& (!ganoMinijuegoMosca))
+						States.VagonState.prototype.enableMoscaGame(game);
+				}
+
+			});
+			
+			if((i % 2) == 0){
+				x -= 50;
+				y -= 75;
+			}else{
+				x += 50;
+			}
+			scale *= -1;
+		}
+	},
+
+	preload : function() {
+
+	},
+
+	create : function() {
+		this.physics.startSystem(Phaser.Physics.ARCADE);
+
+		this.world.setBounds(0, 0, 1600, 600);
+
+		this.vagon = game.add.sprite(0, 0, 'vagon');
+
+		// Our controls.
+		this.cursors = this.input.keyboard.createCursorKeys();
+		
+		States.VagonState.prototype.renderVideoObjects(this.game);
 
 		// Creamos a Emilio
 		this.emilio = new Emilio(this.game);
@@ -169,7 +205,7 @@ States.VagonState.prototype = {
 
 		if ((score >= 100) && (!ganoMinijuegoMosca))
 			States.VagonState.prototype.enableMoscaGame(game);
-		
+
 	},
 
 	update : function() {
@@ -216,10 +252,10 @@ States.VagonState.prototype = {
 
 		if (timer != null) {
 			var tiempo = Math.floor((tiempoMinijuegoMosca - timer.seconds) / 3);
-			if((tiempo < tiempoActual) && (tiempo >= 0)){
-				timerText.loadTexture('numero'+tiempo);
+			if ((tiempo < tiempoActual) && (tiempo >= 0)) {
+				timerText.loadTexture('numero' + tiempo);
 			}
-			
+
 		}
 	}
 

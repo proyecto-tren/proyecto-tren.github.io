@@ -10,8 +10,8 @@ Emilio = function(game, x, y) {
 	game.physics.arcade.enable(emilio);
 
 	// Our two animations, walking left and right.
-	emilio.animations.add('left', [ 0, 1, 2, 3, 4, 5, 6, 7 ], 8, true);
-	emilio.animations.add('right', [ 9, 10, 11, 12, 13, 14, 15, 16, 17 ], 8,
+	emilio.animations.add('left', [ 0, 1, 2, 3, 4, 5, 6, 7 ], 10, true);
+	emilio.animations.add('right', [ 9, 10, 11, 12, 13, 14, 15, 16, 17 ], 10,
 			true);
 
 	emilio.body.gravity.y = 500;
