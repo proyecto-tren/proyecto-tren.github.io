@@ -66,15 +66,24 @@ States.VagonState.prototype = {
 				.add(function(sprite) {
 					var accept = confirm("\xa1El vag\xf3n se ha llenado de moscas! Ayuda a Emilio a matarlas haciendo click sobre ellas.\n\xbfComenzar el juego?");
 					if (accept) {
-						States.VagonState.prototype
-								.createTimer(
-										game,
+						var video = new Video(game,
+								'videos/matamosca-comienzo.mp4');
+						video
+								.addEventListener(
+										'end',
 										function() {
-											alert("Las moscas han tomado el control del vag\xf3n :(\nInt\xe9ntalo nuevamente.");
-											game.state.restart();
-										});
-						minimosca.kill();
-						States.VagonState.prototype.createMoscas(game);
+											States.VagonState.prototype
+													.createTimer(
+															game,
+															function() {
+																alert("Las moscas han tomado el control del vag\xf3n :(\nInt\xe9ntalo nuevamente.");
+																game.state
+																		.restart();
+															});
+											minimosca.kill();
+											States.VagonState.prototype
+													.createMoscas(game);
+										}, false);
 					}
 
 				});
@@ -92,12 +101,13 @@ States.VagonState.prototype = {
 		var mamadera = game.add.sprite(480, 340, 'mamadera');
 		mamadera.inputEnabled = true;
 		mamadera.events.onInputDown.add(function(sprite) {
-			new Video(this.game, 'videos/mamadera.mp4');
+			new Video(game, 'videos/mamadera.mp4');
 			if (!vioMamadera) {
 				vioMamadera = true;
 				score += 50;
 				scoreText.text = 'Puntaje: ' + score;
-				if ((minimosca != null) && (score == 100))
+				if ((minimosca == null) && (score == 100)
+						&& (!ganoMinijuegoMosca))
 					States.VagonState.prototype.enableMoscaGame(game);
 			}
 
@@ -107,12 +117,12 @@ States.VagonState.prototype = {
 		var cenicero = game.add.sprite(540, 370, 'cenicero');
 		cenicero.inputEnabled = true;
 		cenicero.events.onInputDown.add(function(sprite) {
-			new Video(this.game, 'videos/cenicero.mp4');
+			new Video(game, 'videos/cenicero.mp4');
 			if (!vioCenicero) {
 				vioCenicero = true;
 				score += 50;
 				scoreText.text = 'Puntaje: ' + score;
-				if ((minimosca != null) && (score == 100)
+				if ((minimosca == null) && (score == 100)
 						&& (!ganoMinijuegoMosca))
 					States.VagonState.prototype.enableMoscaGame(game);
 			}
@@ -123,7 +133,7 @@ States.VagonState.prototype = {
 		var copa = game.add.sprite(1050, 350, 'copa');
 		copa.inputEnabled = true;
 		copa.events.onInputDown.add(function(sprite) {
-			new Video(this.game, 'videos/copa.mp4');
+			new Video(game, 'videos/copa.mp4');
 			if (!vioCopa) {
 				vioCopa = true;
 				score += 50;
@@ -137,7 +147,7 @@ States.VagonState.prototype = {
 		var x = 1130;
 		var y = 330;
 		var scale = -1;
-		
+
 		for (var i = 1; i <= 4; i++) {
 			siluetas[i] = game.add.sprite(x, y, 'silueta');
 			siluetas[i].scale.x = scale;
@@ -145,7 +155,7 @@ States.VagonState.prototype = {
 			siluetas[i].visto = false;
 			siluetas[i].index = i;
 			siluetas[i].events.onInputDown.add(function(sprite) {
-				new Video(this.game, 'videos/silueta'+ sprite.index +'.mp4');
+				new Video(this.game, 'videos/silueta' + sprite.index + '.mp4');
 				if (!sprite.visto) {
 					sprite.visto = true;
 					score += 50;
@@ -156,11 +166,11 @@ States.VagonState.prototype = {
 				}
 
 			});
-			
-			if((i % 2) == 0){
+
+			if ((i % 2) == 0) {
 				x -= 50;
 				y -= 75;
-			}else{
+			} else {
 				x += 50;
 			}
 			scale *= -1;
@@ -180,7 +190,7 @@ States.VagonState.prototype = {
 
 		// Our controls.
 		this.cursors = this.input.keyboard.createCursorKeys();
-		
+
 		States.VagonState.prototype.renderVideoObjects(this.game);
 
 		// Creamos a Emilio

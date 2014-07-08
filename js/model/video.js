@@ -17,8 +17,9 @@ var Video = function(game, src, x, y){
 
     v2.onended = function(){
         document.body.removeChild(v2);
-        game.paused = false;  
+        game.paused = false;
+        v2.dispatchEvent(new Event('end'));
     };
-
     
+    return v2;
 };
