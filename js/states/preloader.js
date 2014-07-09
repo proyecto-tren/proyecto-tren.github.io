@@ -68,8 +68,7 @@ States.PreloaderState.prototype = {
         this.load.image('vendedor', 'images/vendeilusiones.png');
         this.load.image('flecha', 'images/arrow_back.png');
         
-        this.load.image('playButton', 'images/play.png');
-
+        this.load.audio('musica', 'audio/musica.mp3');
 	},
 
 	create: function () {
