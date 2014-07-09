@@ -39,7 +39,7 @@ States.EstacionState.prototype = {
 		this.office = this.add.sprite(0, 0, 'ticketOffice');
 		this.vendedor = this.add.sprite(0, 250, 'vendedor');
 		this.vendedor.dialog = new Dialog(this.game, this.vendedor);
-		this.vendedor.dialog.say('¡Hola Pequeño!,\n¿Puedes ayudarme?\nAcércate.',
+		this.vendedor.dialog.say('Hola chico!,\nPuedes ayudarme?\nAcercate.',
 				true);
 
 		this.physics.enable(this.office, Phaser.Physics.ARCADE);
@@ -77,7 +77,7 @@ States.EstacionState.prototype = {
 
 		if (isNearVendedor) {
 			this.vendedor.dialog.say(
-					'Mi Zootropo\nse rompió.\n¿Podrías ayudarme?', true);
+					'Mi Zootropo\nse rompio.\nPodrias ayudarme?', true);
 			emilioCanMove = false;
 			var emilio = this.emilio;
 			emilio.stand();
@@ -96,17 +96,17 @@ States.EstacionState.prototype = {
 												emilioCanMove = true;
 												vendedor.dialog
 														.say(
-																'¡Muy bien! ¡Gracias!\nToma esto como\nrecompensa.',
+																'Muy bien! Gracias!\nToma esto como\nrecompensa.',
 																true);
 											}, false);
 							puzzle.addEventListener("lose", function() {
 								emilioCanMove = true;
 								vendedor.dialog.say(
-										'/¿No puedes?\nMira bien los\nnúmeros.',
+										'/No puedes?\nIntentalo\nnuevamente.',
 										true);
 							}, false);
 						} else {
-							vendedor.dialog.say('Que lastima :(\n¡Adios!', true);
+							vendedor.dialog.say('Que lastima :(\nAdios!', true);
 							emilioCanMove = true;
 						}
 					}, 500);
