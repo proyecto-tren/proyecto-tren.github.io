@@ -8,7 +8,7 @@ States.BootState.prototype = {
 
         this.load.audio('musica', 'audio/musica.mp3');
         this.load.image('preloaderBar', 'images/preloadr_bar.png');
-        this.load.image('preloaderBackground', 'images/preloader_bcknd.jpg');
+        this.load.image('preloaderBackground', 'images/pantallas/title.jpg');
 
     },
 

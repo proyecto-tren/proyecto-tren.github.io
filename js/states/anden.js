@@ -93,6 +93,8 @@ States.AndenState.prototype = {
 		this.camera.follow(this.emilio);
 
 		this.pared = new Pared(this, 'pared', bounds);
+		
+		__load_layout();
 	},
 
 	update : function() {

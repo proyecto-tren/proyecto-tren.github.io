@@ -40,6 +40,7 @@ States.VagonState.prototype = {
 		for (var i = 1; i <= numDeMoscas; i++) {
 			var moscanum = Math.floor((Math.random() * 4) + 1);
 			var mosca = new MoscaVoladora(game, 'mosca' + moscanum);
+			clickeables.add(mosca);
 			mosca.events.onKilled.add(function(sprite) {
 				score += 10;
 				scoreText.text = 'Score: ' + score;
@@ -166,7 +167,7 @@ States.VagonState.prototype = {
 				}
 
 			});
-
+			clickeables.add(siluetas[i]);
 			if ((i % 2) == 0) {
 				x -= 50;
 				y -= 75;
@@ -175,6 +176,8 @@ States.VagonState.prototype = {
 			}
 			scale *= -1;
 		}
+
+		clickeables.add(mamadera, cenicero, copa);
 	},
 
 	preload : function() {
@@ -215,6 +218,9 @@ States.VagonState.prototype = {
 
 		if ((score >= 100) && (!ganoMinijuegoMosca))
 			States.VagonState.prototype.enableMoscaGame(game);
+		
+
+		__load_layout();
 
 	},
 

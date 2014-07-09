@@ -24,3 +24,7 @@ video {
     left: 50px;
     z-index:99999;
 }
+
+.selected {
+	cursor: url("cursors/cursor.png"), auto;
+}

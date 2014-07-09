@@ -20,8 +20,16 @@ States.PreloaderState.prototype = {
 		//	What that does is automatically crop the sprite from 0 to full-width
 		//	as the files below are loaded in.
 		this.load.setPreloadSprite(this.preloadBar);
+		
+		//  Load the images from the menu
+		this.load.image('acercade', 'images/pantallas/acercade.jpg');
+		this.load.image('comojugar', 'images/pantallas/comojugar.jpg');
+		this.load.image('menulink', 'images/pantallas/link.png');
+		this.load.image('menubkgnd', 'images/pantallas/menu.jpg');
+		this.load.image('selected', 'images/pantallas/seleccion.png');
 
 		//	Here we load the rest of the assets our game needs.
+		this.load.image('menuIcon', 'images/menu-icon.png');
 		this.load.image('ticket', 'images/ticket.jpg');
 		this.load.image('dialog', 'images/dialog.png');
 		this.load.image('vagon', 'images/vagon.png');
@@ -85,8 +93,8 @@ States.PreloaderState.prototype = {
 		if (this.cache.isSoundDecoded('musica') && this.ready == false)
 		{
 			this.ready = true;
-			this.state.start('VagonState');
-//			this.state.start('MenuState');
+//			this.state.start('VagonState');
+			this.state.start('MenuState');
 		}
 
 	}

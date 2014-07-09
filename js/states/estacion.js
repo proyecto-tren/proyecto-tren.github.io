@@ -62,6 +62,7 @@ States.EstacionState.prototype = {
 		this.emilioCanMove = true;
 		this.pared = new Pared(this, 'pared', 150);
 
+		__load_layout();
 	},
 
 	update : function() {

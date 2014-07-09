@@ -2,6 +2,7 @@ States.MainMenu = function (game) {
 
 	this.music = null;
 	this.playButton = null;
+	this.exitButton = null;
 
 };
 
@@ -16,10 +17,12 @@ States.MainMenu.prototype = {
 //		this.music = this.add.audio('musica');
 //		this.music.play("", null, 0.5, true);
 
-// 		this.add.sprite(0, 0, 'titlepage');
+ 		this.add.sprite(0, 0, 'menubkgnd');
 
-		this.playButton = this.add.button(330, 230, 'playButton', this.startGame, this);
-
+		this.playButton = this.add.button(340, 155, 'menulink', this.startGame, this);
+		this.exitButton = this.add.button(340, 420, 'menulink', this.exitGame, this);
+		
+		clickeables.add(this.playButton, this.exitButton);
 	},
 
 	update: function () {
@@ -34,8 +37,12 @@ States.MainMenu.prototype = {
 //		this.music.stop();
 
 		//	And start the actual game
-		this.state.start('AndenState');
+		this.state.start(lastState);
 
+	},
+	
+	exitGame: function (pointer) {
+		alert("Para salir, simplemente cierra la ventana del navegador.\nALERTA: TODO TU PROGRESO SE PERDERA.");
 	}
 
 };
