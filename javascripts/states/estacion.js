@@ -1,4 +1,5 @@
 States.EstacionState = function(game) {
+	this.game = game;
 };
 
 var emilioCanMove = true;
@@ -26,13 +27,14 @@ States.EstacionState.prototype = {
 
 		puzzleCanvas.addEventListener("win", function() {
 			removePuzzle();
+			addCollectable('ticket');
+			showHeader();
 		}, false);
 
 		return puzzleCanvas;
 	},
 
 	preload : function() {
-
 	},
 
 	create : function() {

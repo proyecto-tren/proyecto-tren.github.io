@@ -17,6 +17,13 @@ var clickeables = {};
 var menuIcon;
 var lastState = "AndenState";
 var header;
+/**
+ * Aca se van a almacenar los diferentes objetos que va recolectando el personaje
+ */
+var collectables = {};
+collectables.members = [];
+collectables.offset = 320;
+collectables.sprites = [];
 
 clickeables.add = function(){
 	for (var i = 0; i < arguments.length; i++) {
@@ -36,6 +43,7 @@ clickeables.add = function(){
 };
 
 function __load_layout(){
+	
 	menuIcon = game.add.sprite(0, 60, 'menuIcon');
 	menuIcon.inputEnabled = true;
 	menuIcon.fixedToCamera = true;
@@ -48,9 +56,8 @@ function __load_layout(){
 	header.menuLink.scale.x = 1.30;
 	header.menuLink.fixedToCamera = true;
 	header.visible = false;
-	hideHeader();
 	clickeables.add(header.menuLink);
-	
+
 	menuIcon.events.onInputDown.add(function(member) {
 		if(header.visible) hideHeader(); else showHeader();
 	}, this);
@@ -58,14 +65,43 @@ function __load_layout(){
 		lastState = game.state.current;
 		game.state.start('MenuState');
 	}, this);
+
+	hideHeader();
+	
 };
 
 function showHeader() {
 	header.visible = true;
 	header.menuLink.revive();
-}
+	showCollectables();
+};
 
 function hideHeader(){
+	hideCollectables();
 	header.visible = false;
 	header.menuLink.kill();
-}
+};
+
+addCollectable = function(key){
+	collectables.members.push(key);
+	if (header.visible){
+		var sprite = game.add.sprite(collectables.offset, 15, key);
+		collectables.offset += (15 + sprite.width);
+		collectables.sprites.push(sprite);
+	}
+};
+
+showCollectables = function() {
+	collectables.offset = 320;
+	collectables.members.forEach(function (element, index, array) {
+		var sprite = game.add.sprite(collectables.offset, 15, element);
+		collectables.offset += (15 + sprite.width);
+		collectables.sprites.push(sprite);
+	})	
+};
+
+hideCollectables = function() {
+	collectables.sprites.forEach(function (element, index, array) {
+		element.destroy();
+	})
+};

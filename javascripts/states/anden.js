@@ -69,12 +69,12 @@ var Tren = function(game) {
 };
 
 States.AndenState = function(game) {
+	this.game = game;
 };
 
 States.AndenState.prototype = {
 
 	preload : function() {
-
 	},
 
 	create : function() {

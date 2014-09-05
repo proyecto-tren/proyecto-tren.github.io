@@ -1,5 +1,5 @@
 States.BootState = function (game) {
-
+	this.game = game;
 };
 
 States.BootState.prototype = {
@@ -8,11 +8,9 @@ States.BootState.prototype = {
 
         this.load.image('preloaderBar', 'images/preloadr_bar.png');
         this.load.image('preloaderBackground', 'images/pantallas/title.jpg');
-
     },
 
     create: function () {
-
         //  Unless you specifically know your game needs to support multi-touch I would recommend setting this to 1
         this.input.maxPointers = 1;
 
@@ -37,7 +35,7 @@ States.BootState.prototype = {
             this.scale.pageAlignHorizontally = true;
             this.scale.setScreenSize(true);
         }
-
+        
         //  By this point the preloader assets have loaded to the cache, we've set the game settings
         //  So now let's start the real preloader going
         this.state.start('PreloaderState');
