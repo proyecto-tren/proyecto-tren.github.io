@@ -38,6 +38,7 @@ States.PreloaderState.prototype = {
         this.load.image('locomotora', 'images/tren/locomotora.png');
         
         this.load.spritesheet('emilio', 'images/emilio-caminando.png', 144, 323);
+        this.load.spritesheet('vendedor', 'images/vendedor.png', 205, 376);
         this.load.image('mamadera', 'images/mamadera.png');
         this.load.image('cenicero', 'images/cenicero.png');
         this.load.image('copa', 'images/copa.png');
@@ -62,9 +63,8 @@ States.PreloaderState.prototype = {
             this.load.image('numero'+i, 'images/numeros/numero'+ i +'.jpeg');
         }
         
-        this.load.image('ticketOffice', 'images/ticketOffice.jpg');
+        this.load.image('estacion', 'images/estacion.jpg');
         this.load.image('cartel', 'images/sign.png');
-        this.load.image('vendedor', 'images/vendeilusiones.png');
         this.load.image('flecha', 'images/arrow_back.png');
         
         this.load.audio('musica', 'audio/musica.mp3');
