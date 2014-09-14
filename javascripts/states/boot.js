@@ -7,7 +7,7 @@ States.BootState.prototype = {
     preload: function () {
 
         this.load.image('preloaderBar', 'images/preloadr_bar.png');
-        this.load.image('preloaderBackground', 'images/pantallas/title.jpg');
+        this.load.image('preloaderBackground', 'images/pantallas/preloader.jpg');
     },
 
     create: function () {

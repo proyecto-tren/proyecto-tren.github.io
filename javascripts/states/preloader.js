@@ -37,7 +37,7 @@ States.PreloaderState.prototype = {
         this.load.image('floor', 'images/platform.png');
         this.load.image('locomotora', 'images/tren/locomotora.png');
         
-        this.load.spritesheet('emilio', 'images/emilio-caminando.png', 144, 323);
+        this.load.spritesheet('emilio', 'images/emilio-caminando.png', 169, 323);
         this.load.spritesheet('vendedor', 'images/vendedor.png', 205, 376);
         this.load.image('mamadera', 'images/mamadera.png');
         this.load.image('cenicero', 'images/cenicero.png');
@@ -66,9 +66,17 @@ States.PreloaderState.prototype = {
         this.load.image('estacion', 'images/estacion.jpg');
         this.load.image('cartel', 'images/sign.png');
         this.load.image('flecha', 'images/arrow_back.png');
+        this.load.image('silenciador', 'images/pantallas/silenciador.png');
+        this.load.image('silenciador-cross', 'images/pantallas/silenciador-cross.png');
+        this.load.image('comojugar', 'images/pantallas/comojugar.jpg');
+        this.load.image('acercade', 'images/pantallas/acercade.jpg');
+        this.load.image('mapa', 'images/pantallas/mapa.jpg');
+        this.load.image('tutoTicket01', 'images/pantallas/tuto0101.jpg');
+        this.load.image('tutoVagon01', 'images/pantallas/tuto0102.jpg');
         
         this.load.audio('musica', 'audio/musica.mp3');
         
+        this.game.music = this.add.audio('musica');
 	},
 
 	create: function () {
@@ -89,6 +97,7 @@ States.PreloaderState.prototype = {
 
 		if (this.cache.isSoundDecoded('musica') && this.ready == false)
 		{
+	        this.game.music.play("", null, 0.5, true);
 			this.ready = true;
 //			this.state.start('VagonState');
 			this.state.start('MenuState');
