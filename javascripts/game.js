@@ -67,7 +67,6 @@ function __load_layout(){
 	}, this);
 
 	hideHeader();
-	
 };
 
 function showHeader() {

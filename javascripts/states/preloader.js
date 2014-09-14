@@ -63,6 +63,8 @@ States.PreloaderState.prototype = {
             this.load.image('numero'+i, 'images/numeros/numero'+ i +'.jpeg');
         }
         
+        this.load.image('fullscreen', 'images/fullscreen.png');
+        this.load.image('normalscreen', 'images/normalscreen.png');
         this.load.image('estacion', 'images/estacion.jpg');
         this.load.image('cartel', 'images/sign.png');
         this.load.image('flecha', 'images/arrow_back.png');

@@ -3,7 +3,6 @@ States.MainMenu = function (game) {
 	this.music = null;
 	this.playButton = null;
 	this.exitButton = null;
-
 };
 
 States.MainMenu.prototype = {
@@ -22,7 +21,21 @@ States.MainMenu.prototype = {
 		else
 			this.toggleMusicButton = this.add.button(50, 50, 'silenciador-cross', this.startMusic, this);
 		
-		clickeables.add(this.playButton, this.exitButton, this.mapButton, this.aboutButton, this.toggleMusicButton, this.helpButton);
+		var screenType = (this.scale.isFullScreen) ? 'normalscreen' : 'fullscreen';
+				
+		this.fullscreenButton = this.add.button(680, 75, screenType, this.toogleFullscreen, this)
+				
+		this.scale.enterFullScreen.add(function() {
+			if(typeof this.fullscreenButton !== 'undefined')
+				this.fullscreenButton.loadTexture('normalscreen');
+		}, this);
+	    this.scale.leaveFullScreen.add(function() {
+	    	if(typeof this.fullscreenButton !== 'undefined')
+	    		this.fullscreenButton.loadTexture('fullscreen');
+		}, this);
+		
+		clickeables.add(this.playButton, this.exitButton, this.mapButton, this.aboutButton, this.toggleMusicButton, 
+				this.helpButton, this.fullscreenButton);
 	},
 
 	update: function () {
@@ -63,6 +76,17 @@ States.MainMenu.prototype = {
 	
 	exitGame: function (pointer) {
 		alert("Para salir, simplemente cierra la ventana del navegador.\nALERTA: TODO TU PROGRESO SE PERDERA.");
+	},
+	
+	toogleFullscreen: function() {
+		if(this.scale.isFullScreen) {
+			console.log("isfull");
+			this.scale.stopFullScreen();
+		}else{
+			console.log("isnotfull");
+			this.scale.startFullScreen(false);
+			
+		}
 	}
 
 };
