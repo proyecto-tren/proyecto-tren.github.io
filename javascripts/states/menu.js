@@ -21,21 +21,12 @@ States.MainMenu.prototype = {
 		else
 			this.toggleMusicButton = this.add.button(50, 50, 'silenciador-cross', this.startMusic, this);
 		
-		var screenType = (this.scale.isFullScreen) ? 'normalscreen' : 'fullscreen';
+		var screenType = (isFullScreen) ? 'normalscreen' : 'fullscreen';
 				
-		this.fullscreenButton = this.add.button(680, 75, screenType, this.toogleFullscreen, this)
-				
-		this.scale.enterFullScreen.add(function() {
-			if(typeof this.fullscreenButton !== 'undefined')
-				this.fullscreenButton.loadTexture('normalscreen');
-		}, this);
-	    this.scale.leaveFullScreen.add(function() {
-	    	if(typeof this.fullscreenButton !== 'undefined')
-	    		this.fullscreenButton.loadTexture('fullscreen');
-		}, this);
-		
+		//this.fullscreenButton = this.add.button(680, 75, screenType, this.toogleFullscreen, this);
+
 		clickeables.add(this.playButton, this.exitButton, this.mapButton, this.aboutButton, this.toggleMusicButton, 
-				this.helpButton, this.fullscreenButton);
+				this.helpButton);
 	},
 
 	update: function () {
@@ -79,13 +70,17 @@ States.MainMenu.prototype = {
 	},
 	
 	toogleFullscreen: function() {
-		if(this.scale.isFullScreen) {
-			console.log("isfull");
-			this.scale.stopFullScreen();
+		if(isFullScreen) {
+			isFullScreen = false;
+			this.scale.setupScale(800,600);
+			this.scale.refresh();
+			this.fullscreenButton.loadTexture('fullscreen');
 		}else{
-			console.log("isnotfull");
-			this.scale.startFullScreen(false);
-			
+			isFullScreen = true;
+			this.scale.fullScreenScaleMode = Phaser.ScaleManager.SHOW_ALL;
+			this.scale.setMaximum();
+			this.scale.refresh();
+			this.fullscreenButton.loadTexture('normalscreen');
 		}
 	}
 

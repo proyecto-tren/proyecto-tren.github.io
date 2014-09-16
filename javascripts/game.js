@@ -17,6 +17,8 @@ var clickeables = {};
 var menuIcon;
 var lastState = "AndenState";
 var header;
+var puzzleCanvas;
+var isFullScreen = false;
 /**
  * Aca se van a almacenar los diferentes objetos que va recolectando el personaje
  */

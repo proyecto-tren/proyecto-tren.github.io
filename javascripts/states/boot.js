@@ -16,12 +16,13 @@ States.BootState.prototype = {
 
         //  Phaser will automatically pause if the browser tab the game is in loses focus. You can disable that here:
         this.stage.disableVisibilityChange = true;
-		this.scale.fullScreenScaleMode = Phaser.ScaleManager.EXACT_FIT;
 
         if (this.game.device.desktop)
         {
             //  If you have any desktop specific settings, they can go in here
             this.scale.pageAlignHorizontally = true;
+            this.scale.setMaximum();
+            this.scale.setScreenSize(true);
         }
         else
         {
@@ -34,6 +35,7 @@ States.BootState.prototype = {
             this.scale.maxHeight = 1500;
             this.scale.forceLandscape = true;
             this.scale.pageAlignHorizontally = true;
+            this.scale.setMaximum();
             this.scale.setScreenSize(true);
 
         }

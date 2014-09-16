@@ -45,7 +45,7 @@ function initPuzzle(){
     _currentPiece = null;
     _currentDropPiece = null;
     _stage.drawImage(_img, 0, 0, _puzzleWidth, _puzzleHeight, 0, 0, _puzzleWidth, _puzzleHeight);
-    createTitle("Click para comenzar el rompecabezas.");
+    createTitle("Intenta componer el zootropo.");
     buildPieces();
 }
 function createTitle(msg){

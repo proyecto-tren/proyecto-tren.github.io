@@ -3,13 +3,14 @@ States.EstacionState = function(game) {
 };
 
 var emilioCanMove = true;
-var puzzleCanvas;
 var flecha;
 
 function removePuzzle() {
 	flecha.destroy();
 	puzzleCanvas.dispatchEvent(new Event('lose'));
 	document.body.removeChild(puzzleCanvas);
+	puzzleCanvas.destroy();
+	puzzleCanvas = null;
 	emilioCanMove = true;
 }
 
