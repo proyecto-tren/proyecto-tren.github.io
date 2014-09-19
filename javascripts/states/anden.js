@@ -100,7 +100,7 @@ States.AndenState.prototype = {
 	update : function() {
 		this.physics.arcade.collide(this.emilio, this.pared);
 		if ((this.emilio.x) < 0) {
-			this.state.start('EstacionState');
+			transitions.to('EstacionState');
 		}
 		// Esta Emilio en el piso?
 		var isEmilioOnTheFloor = this.physics.arcade.collide(this.emilio,
@@ -124,7 +124,7 @@ States.AndenState.prototype = {
 							emilio.body.velocity.x = 0;
 							emilio.body.velocity.y = -200;
 							setTimeout(function() {
-								game.state.start('VagonState');
+								transitions.to('VagonState');
 							}, 500);
 						}, 500);
 					}, 500);

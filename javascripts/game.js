@@ -19,6 +19,7 @@ var lastState = "AndenState";
 var header;
 var puzzleCanvas;
 var isFullScreen = false;
+var transitions;
 /**
  * Aca se van a almacenar los diferentes objetos que va recolectando el personaje
  */
@@ -65,7 +66,7 @@ function __load_layout(){
 	}, this);
 	header.menuLink.events.onInputDown.add(function(member) {
 		lastState = game.state.current;
-		game.state.start('MenuState');
+		transitions.to('MenuState');
 	}, this);
 
 	hideHeader();

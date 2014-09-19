@@ -79,7 +79,7 @@ States.EstacionState.prototype = {
 		var isEmilioOnTheFloor = this.physics.arcade.collide(this.emilio,
 				this.floor);
 		if ((this.emilio.x) > 1800) {
-			this.state.start('AndenState');
+			transitions.to('AndenState');
 		}
 
 		if (isNearVendedor) {

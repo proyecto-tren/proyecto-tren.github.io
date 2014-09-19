@@ -232,7 +232,7 @@ States.VagonState.prototype = {
 
 		// Si salio del vagon
 		if (this.emilio.x < 0) {
-			this.state.start('AndenState');
+			transitions.to('AndenState');
 		}
 		if (isEmilioOnTheFloor) {
 			if (this.cursors.up.isDown) {

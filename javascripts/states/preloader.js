@@ -82,7 +82,17 @@ States.PreloaderState.prototype = {
 	},
 
 	create: function () {
-
+		transitions = game.plugins.add(Phaser.Plugin.StateTransition);
+		transitions.settings({
+			duration: 1000,
+			properties: {
+				alpha: 0,
+				scale: {
+					x: 1.5,
+					y: 1.5
+				}
+			}
+		})
 		//	Once the load has finished we disable the crop because we're going to sit in the update loop for a short while as the music decodes
 		this.preloadBar.cropEnabled = false;
 	},
@@ -102,7 +112,7 @@ States.PreloaderState.prototype = {
 	        this.game.music.play("", null, 0.5, true);
 			this.ready = true;
 //			this.state.start('VagonState');
-			this.state.start('MenuState');
+			transitions.to('MenuState');
 		}
 
 	}

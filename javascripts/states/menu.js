@@ -36,19 +36,19 @@ States.MainMenu.prototype = {
 	},
 
 	startGame: function (pointer) {
-		this.state.start(lastState);
+		transitions.to(lastState);
 	},
 	
 	startMap: function (pointer) {
-		this.state.start('MapState');
+		transitions.to('MapState');
 	},
 	
 	startAbout: function (pointer) {
-		this.state.start('AboutState');
+		transitions.to('AboutState');
 	},
 	
 	startHelp: function (pointer) {
-		this.state.start('HelpState');
+		transitions.to('HelpState');
 	},
 	
 	startMusic: function (pointer) {
