@@ -21,6 +21,11 @@ States.BootState.prototype = {
         {
             //  If you have any desktop specific settings, they can go in here
             this.scale.pageAlignHorizontally = true;
+            this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+            this.scale.minWidth = 1000;
+            this.scale.minHeight = 600;
+            this.scale.maxWidth = 1000;
+            this.scale.maxHeight = 600;
             this.scale.setMaximum();
             this.scale.setScreenSize(true);
         }

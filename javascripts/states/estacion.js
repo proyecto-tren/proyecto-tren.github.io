@@ -9,7 +9,7 @@ function removePuzzle() {
 	flecha.destroy();
 	puzzleCanvas.dispatchEvent(new Event('lose'));
 	document.body.removeChild(puzzleCanvas);
-	puzzleCanvas.destroy();
+	//puzzleCanvas.destroy();
 	puzzleCanvas = null;
 	emilioCanMove = true;
 }

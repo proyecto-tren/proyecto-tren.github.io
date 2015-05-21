@@ -1,24 +1,35 @@
 var Video = function(game, src, x, y){
-    game.paused = true;
-    var v2 = document.createElement("video");
-    if (x === undefined) x = 100;
-    if (y === undefined) y = 100;
+	game.input.keyboard.disable = true;
+    v2 = document.createElement("video");
     
+    if (x === undefined) x = 300;
+    if (y === undefined) y = 50;
+    
+    var flecha = game.add.sprite(0, 0, 'flecha');
+    flecha.inputEnabled = true;
+	flecha.events.onInputDown.add(function(){
+		document.body.removeChild(v2);
+	    game.input.keyboard.disable = false;
+	    flecha.destroy();
+	});
+	clickeables.add(flecha);
+	
     v2.src = src;
     v2.id = 'video';
     v2.loop = false;
     v2.autoplay = true;
     v2.controls = false;
-    v2.width = 600;
-    v2.height = 400;
+    v2.width = 935;
+    v2.height = 530;
     v2.style.top = y + "px";
     v2.style.left = x + "px";
     document.body.appendChild(v2);
 
     v2.onended = function(){
         document.body.removeChild(v2);
-        game.paused = false;
+        game.input.keyboard.disable = false;
         v2.dispatchEvent(new Event('end'));
+        flecha.destroy();
     };
     
     return v2;

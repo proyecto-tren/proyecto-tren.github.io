@@ -97,6 +97,7 @@ showCollectables = function() {
 	collectables.offset = 320;
 	collectables.members.forEach(function (element, index, array) {
 		var sprite = game.add.sprite(collectables.offset, 15, element);
+		sprite.fixedToCamera = true;
 		collectables.offset += (15 + sprite.width);
 		collectables.sprites.push(sprite);
 	})	

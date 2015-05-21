@@ -99,7 +99,7 @@ States.VagonState.prototype = {
 
 	renderVideoObjects : function(game) {
 		// Creamos la mamadera con el video
-		var mamadera = game.add.sprite(480, 340, 'mamadera');
+		var mamadera = game.add.sprite(280, 230, 'mamadera');
 		mamadera.inputEnabled = true;
 		mamadera.events.onInputDown.add(function(sprite) {
 			new Video(game, 'videos/mamadera.mp4');
@@ -115,7 +115,7 @@ States.VagonState.prototype = {
 		});
 
 		// Creamos el cenicero con el video
-		var cenicero = game.add.sprite(540, 370, 'cenicero');
+		var cenicero = game.add.sprite(340, 260, 'cenicero');
 		cenicero.inputEnabled = true;
 		cenicero.events.onInputDown.add(function(sprite) {
 			new Video(game, 'videos/cenicero.mp4');
@@ -131,7 +131,7 @@ States.VagonState.prototype = {
 		});
 
 		// Creamos el cenicero con el video
-		var copa = game.add.sprite(1050, 350, 'copa');
+		var copa = game.add.sprite(720, 240, 'copa');
 		copa.inputEnabled = true;
 		copa.events.onInputDown.add(function(sprite) {
 			new Video(game, 'videos/copa.mp4');
@@ -145,8 +145,8 @@ States.VagonState.prototype = {
 			}
 
 		});
-		var x = 1130;
-		var y = 330;
+		var x = 805;
+		var y = 250;
 		var scale = -1;
 
 		for (var i = 1; i <= 4; i++) {
@@ -169,10 +169,10 @@ States.VagonState.prototype = {
 			});
 			clickeables.add(siluetas[i]);
 			if ((i % 2) == 0) {
-				x -= 50;
+				x -= 20;
 				y -= 75;
 			} else {
-				x += 50;
+				x += 20;
 			}
 			scale *= -1;
 		}
@@ -187,7 +187,7 @@ States.VagonState.prototype = {
 	create : function() {
 		this.physics.startSystem(Phaser.Physics.ARCADE);
 
-		this.world.setBounds(0, 0, 1600, 600);
+		this.world.setBounds(0, 0, 2440, 600);
 
 		this.vagon = game.add.sprite(0, 0, 'vagon');
 
@@ -203,10 +203,10 @@ States.VagonState.prototype = {
 		this.camera.follow(this.emilio);
 
 		// this.paredIzq = new Pared(this, 'pared', -50);
-		this.paredDer = new Pared(this, 'pared', 1550);
+		this.paredDer = new Pared(this, 'pared', 2400);
 		this.piso = new Pared(this, 'pared', 0, 590);
 		this.piso.angle = 90;
-		this.piso.scale.setTo(1900, 0);
+		this.piso.scale.setTo(2500, 0);
 
 		States.VagonState.prototype.createMosquitas(game);
 		// The score

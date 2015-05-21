@@ -42,7 +42,7 @@ States.Map.prototype = {
 	},
 	
 	back: function() {
-		this.state.start('MenuState');
+		transitions.to('MenuState');
 	}
 	
 	

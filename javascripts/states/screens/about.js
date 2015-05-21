@@ -20,7 +20,7 @@ States.About.prototype = {
 	},
 	
 	back: function() {
-		this.state.start('MenuState');
+		transitions.to('MenuState');
 	}
 
 };
