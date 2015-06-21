@@ -45,6 +45,7 @@
 	  * Calls the _draw method which handles the state changes and transitions
 	  */
 	Phaser.Plugin.StateTransition.prototype.to = function (state, callback) {
+		ultimoEstado = this.game.state.current;
 		_draw.call(this, state);
 	};
 

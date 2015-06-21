@@ -9,10 +9,7 @@ var cantVagones = 2;
  */
 var bounds;
 
-/**
- * Puede moverse?
- */
-var emilioCanMove;
+
 
 var Anden = function(game, trainSprite, floorSprite) {
 	// We're going to be using physics, so enable the Arcade Physics system
@@ -20,39 +17,32 @@ var Anden = function(game, trainSprite, floorSprite) {
 
 	game.world.setBounds(0, 0, bounds, 600);
 
-	var sky = game.add.sprite(0, 0, 'sky');
+	/*var sky = game.add.sprite(0, 0, 'sky');
 
-	sky.fixedToCamera = true;
+	sky.fixedToCamera = true;*/
 
 	this.train = new Tren(game);
 
 	// Here we create the ground.
-	this.floor = game.add.sprite(0, 536, 'floor');
-
-	this.floor.fixedCamera = true;
-
-	// We need to enable physics on the player
+	this.floor = new Pared(game, 'pared', 0, 590);
+	this.floor.angle = 90;
+	this.floor.scale.setTo(3200, 0);
 	game.physics.arcade.enable(this.floor);
 
-	// Scale it to fit the width of the game (the original sprite is 400x32 in
-	// size)
-	this.floor.scale.setTo(536, 536);
-
-	// This stops it from falling away when you jump on it
-	this.floor.body.immovable = true;
-
-	this.cartel = game.add.sprite(50, 336, 'cartel');
+	this.cartel = game.add.sprite(50, 380, 'cartel');
 
 	return this;
 
 };
 
 var Tren = function(game) {
+	
+	game.physics.startSystem(Phaser.Physics.ARCADE);
+	this.tren = game.add.sprite(0, 0, 'trenyfondo');
+	/*
 	var vagon;
 	this.tren = {};
-	this.tren.vagones = {};
-	game.physics.startSystem(Phaser.Physics.ARCADE);
-
+	this.tren.vagones = {}; 
 	this.tren.locomotora = game.add.sprite(0, 0, 'locomotora');
 	game.physics.enable(this.tren.locomotora, Phaser.Physics.ARCADE);
 
@@ -62,9 +52,9 @@ var Tren = function(game) {
 		game.physics.enable(vagon, Phaser.Physics.ARCADE);
 		width += vagon.body.width;
 		this.tren.vagones['vagon' + i] = vagon;
-	}
+	}*/
 
-	bounds = width;
+	bounds = this.tren.width;
 	return this.tren;
 };
 
@@ -85,15 +75,24 @@ States.AndenState.prototype = {
 
 		// Our controls.
 		this.cursors = this.input.keyboard.createCursorKeys();
+		
+		// Creamos al guardia
+		this.guardia = game.add.sprite(2960, 0, 'guardianormal');
+		
+		this.guardiaenojado = game.add.sprite(2960, 0, 'guardiaenojado');
+		this.guardiaenojado.alpha = 0;
+		
+		this.guardiacontento = game.add.sprite(3030, 0, 'guardiacontento');
+		this.guardiacontento.alpha = 0;
 
 		// Creamos a Emilio
-		this.emilio = new Emilio(this.game);
+		this.emilio = (ultimoEstado == 'VagonState') ? new Emilio(this.game, 2960) : new Emilio(this.game);
 
 		// Hacemos que la camara siga a Emilio a donde vaya
 		this.camera.follow(this.emilio);
 
 		this.pared = new Pared(this, 'pared', bounds);
-		
+
 		__load_layout();
 	},
 
@@ -108,16 +107,28 @@ States.AndenState.prototype = {
 
 		// Emilio solamente se mueve si esta en el piso.
 		if (isEmilioOnTheFloor && emilioCanMove) {
-			if (this.cursors.up.isDown) {
-				var marcoIzq = this.anden.train.vagones.vagon2.x + 200;
-				var marcoDer = this.anden.train.vagones.vagon2.x + 255;
+			if (this.emilio.x > (this.guardia.x - 100)){
+			    game.add.tween(this.guardia).to( { alpha: 0 }, 100, Phaser.Easing.Linear.Out, true, 0, -1);
+			    
+			    if (ganoMinijuegoPuzzle) {
+			    	game.add.tween(this.guardiacontento).to( { alpha: 1 }, 100, Phaser.Easing.Linear.None, true, 0, -1);
+			    }else{
+			    	game.add.tween(this.guardiaenojado).to( { alpha: 1 }, 100, Phaser.Easing.Linear.None, true, 0, -1);
+			    }
+			}
+			if (this.cursors.up.isDown && ganoMinijuegoPuzzle) {
+				var marcoIzq = 2900;
+				var marcoDer = 3130;
+				
 				if ((this.emilio.x > marcoIzq) && (this.emilio.x < marcoDer)) {
 					emilioCanMove = false;
 					var emilio = this.emilio;
 					emilio.body.velocity.x = 0;
 					emilio.animations.stop();
 					this.emilio.loadTexture('emilioEspaldas');
-					setTimeout(function() {
+					transitions.to('VagonState');
+					
+					/*setTimeout(function() {
 						emilio.body.velocity.x = 0;
 						emilio.body.velocity.y = -200;
 						setTimeout(function() {
@@ -127,7 +138,8 @@ States.AndenState.prototype = {
 								transitions.to('VagonState');
 							}, 500);
 						}, 500);
-					}, 500);
+					}, 500);*/
+					
 
 				} else {
 					this.emilio.jump();
@@ -144,6 +156,9 @@ States.AndenState.prototype = {
 				this.emilio.stand();
 			}
 		}
+	},
+	render: function() {
+    	//game.debug.inputInfo(16, 16);
 	}
 
 };

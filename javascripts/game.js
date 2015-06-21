@@ -13,6 +13,7 @@ var States = {};
  */
 var score = 0;
 var ganoMinijuegoMosca = false;
+var ganoMinijuegoPuzzle = false;
 var clickeables = {};
 var menuIcon;
 var lastState = "AndenState";
@@ -20,6 +21,11 @@ var header;
 var puzzleCanvas;
 var isFullScreen = false;
 var transitions;
+var ultimoEstado;
+/**
+ * Puede moverse?
+ */
+var emilioCanMove=true;
 /**
  * Aca se van a almacenar los diferentes objetos que va recolectando el personaje
  */
@@ -70,6 +76,7 @@ function __load_layout(){
 	}, this);
 
 	hideHeader();
+
 };
 
 function showHeader() {

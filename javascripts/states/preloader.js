@@ -35,12 +35,13 @@ States.PreloaderState.prototype = {
 		this.load.image('vagon', 'images/vagon.png');
         this.load.image('pared', 'images/pared.png');
         this.load.image('floor', 'images/platform.png');
-        this.load.image('locomotora', 'images/tren/locomotora.png');
+        //this.load.image('locomotora', 'images/tren/locomotora.png');
+        this.load.image('trenyfondo', 'images/tren/trenyfondo.png');
         
         this.load.spritesheet('emilio', 'images/emilio-caminando.png', 169, 323);
         this.load.spritesheet('vendedor', 'images/vendedor.png', 205, 376);
         this.load.image('mamadera', 'images/mamadera.png');
-        this.load.image('cenicero', 'images/cenicero.png');
+        this.load.image('facturas', 'images/facturas.png');
         this.load.image('copa', 'images/copa.png');
         
         this.load.image('minimosca', 'images/minimosca.png');
@@ -50,13 +51,17 @@ States.PreloaderState.prototype = {
         this.load.image('mosca4', 'images/moscas/mosca4.png');
         this.load.image('silueta', 'images/moscas/silueta.png');
         
+        this.load.image('guardianormal', 'images/guardia/guardianormal.png');
+        this.load.image('guardiacontento', 'images/guardia/guardiacontento.png');
+        this.load.image('guardiaenojado', 'images/guardia/guardiaenojado.png');
+        
         this.load.image('sky', 'images/sky.png');
         this.load.image('locomotora', 'images/tren/locomotora.png');
         this.load.image('emilioEspaldas', 'images/emilio-espaldas.png');
-        for (var i=2;i<=3;i++)
+        /*for (var i=2;i<=3;i++)
         { 
             this.load.image('vagon'+i, 'images/tren/vagon'+ i +'.png');
-        }
+        }*/
         
         for (var i=0;i<=9;i++)
         { 
@@ -111,7 +116,7 @@ States.PreloaderState.prototype = {
 		{
 	        this.game.music.play("", null, 0.5, true);
 			this.ready = true;
-//			this.state.start('VagonState');
+//			transitions.to('VagonState');
 			transitions.to('MenuState');
 		}
 

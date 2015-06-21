@@ -2,7 +2,7 @@ States.EstacionState = function(game) {
 	this.game = game;
 };
 
-var emilioCanMove = true;
+
 var flecha;
 
 function removePuzzle() {
@@ -108,6 +108,7 @@ States.EstacionState.prototype = {
 																'Muy bien! Gracias!\nToma esto como\nrecompensa.',
 																true);
 												emilio.position.x -=5;
+												ganoMinijuegoPuzzle = true;
 											}, false);
 							puzzle.addEventListener("lose", function() {
 								vendedor.frame = 1;
@@ -141,6 +142,9 @@ States.EstacionState.prototype = {
 				this.emilio.stand();
 			}
 		}
+	},
+	render: function() {
+    	//game.debug.inputInfo(16, 16);
 	}
 
 };

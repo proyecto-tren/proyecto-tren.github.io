@@ -9,8 +9,8 @@ var timerText;
 var minimosca;
 // Variable que controla si ya vio el video de la mamadera.
 var vioMamadera = false;
-// Variable que controla si ya vio el video del cenicero.
-var vioCenicero = false;
+// Variable que controla si ya vio el video de las facturas.
+var vioFacturas = false;
 // Variable que controla si ya vio el video de la copa.
 var vioCopa = false;
 // Timer que se usara en el minijuego de moscas
@@ -61,8 +61,10 @@ States.VagonState.prototype = {
 
 	enableMoscaGame : function(game) {
 		minimosca = game.add.sprite(100, game.camera.y + 75, 'minimosca');
+		clickeables.add(minimosca);
 		minimosca.inputEnabled = true;
 		minimosca.fixedToCamera = true;
+		minimosca.scale.setTo(0.5,0.5);
 		minimosca.events.onInputDown
 				.add(function(sprite) {
 					var accept = confirm("\xa1El vag\xf3n se ha llenado de moscas! Ayuda a Emilio a matarlas haciendo click sobre ellas.\n\xbfComenzar el juego?");
@@ -99,7 +101,7 @@ States.VagonState.prototype = {
 
 	renderVideoObjects : function(game) {
 		// Creamos la mamadera con el video
-		var mamadera = game.add.sprite(280, 230, 'mamadera');
+		var mamadera = game.add.sprite(750, 243, 'mamadera');
 		mamadera.inputEnabled = true;
 		mamadera.events.onInputDown.add(function(sprite) {
 			new Video(game, 'videos/mamadera.mp4');
@@ -114,13 +116,13 @@ States.VagonState.prototype = {
 
 		});
 
-		// Creamos el cenicero con el video
-		var cenicero = game.add.sprite(340, 260, 'cenicero');
-		cenicero.inputEnabled = true;
-		cenicero.events.onInputDown.add(function(sprite) {
-			new Video(game, 'videos/cenicero.mp4');
-			if (!vioCenicero) {
-				vioCenicero = true;
+		// Creamos el facturas con el video
+		var facturas = game.add.sprite(2050, 235, 'facturas');
+		facturas.inputEnabled = true;
+		facturas.events.onInputDown.add(function(sprite) {
+			new Video(game, 'videos/facturas.mp4');
+			if (!vioFacturas) {
+				vioFacturas = true;
 				score += 50;
 				scoreText.text = 'Puntaje: ' + score;
 				if ((minimosca == null) && (score == 100)
@@ -130,8 +132,8 @@ States.VagonState.prototype = {
 
 		});
 
-		// Creamos el cenicero con el video
-		var copa = game.add.sprite(720, 240, 'copa');
+		// Creamos el facturas con el video
+		var copa = game.add.sprite(370, 265, 'copa');
 		copa.inputEnabled = true;
 		copa.events.onInputDown.add(function(sprite) {
 			new Video(game, 'videos/copa.mp4');
@@ -145,8 +147,8 @@ States.VagonState.prototype = {
 			}
 
 		});
-		var x = 805;
-		var y = 250;
+		var x = 810;
+		var y = 175;
 		var scale = -1;
 
 		for (var i = 1; i <= 4; i++) {
@@ -168,16 +170,16 @@ States.VagonState.prototype = {
 
 			});
 			clickeables.add(siluetas[i]);
-			if ((i % 2) == 0) {
-				x -= 20;
-				y -= 75;
+			if (i == 2) {
+				x = 1575;
+				y = 255;
 			} else {
 				x += 20;
 			}
 			scale *= -1;
 		}
 
-		clickeables.add(mamadera, cenicero, copa);
+		clickeables.add(mamadera, facturas, copa);
 	},
 
 	preload : function() {
@@ -185,6 +187,8 @@ States.VagonState.prototype = {
 	},
 
 	create : function() {
+		emilioCanMove = true;
+		
 		this.physics.startSystem(Phaser.Physics.ARCADE);
 
 		this.world.setBounds(0, 0, 2440, 600);
@@ -197,13 +201,13 @@ States.VagonState.prototype = {
 		States.VagonState.prototype.renderVideoObjects(this.game);
 
 		// Creamos a Emilio
-		this.emilio = new Emilio(this.game);
+		this.emilio = new Emilio(this.game, 2300);
 
 		// Hacemos que la camara siga a Emilio a donde vaya
 		this.camera.follow(this.emilio);
 
 		// this.paredIzq = new Pared(this, 'pared', -50);
-		this.paredDer = new Pared(this, 'pared', 2400);
+		this.paredDer = new Pared(this, 'pared', 10);
 		this.piso = new Pared(this, 'pared', 0, 590);
 		this.piso.angle = 90;
 		this.piso.scale.setTo(2500, 0);
@@ -219,7 +223,6 @@ States.VagonState.prototype = {
 		if ((score >= 100) && (!ganoMinijuegoMosca))
 			States.VagonState.prototype.enableMoscaGame(game);
 		
-
 		__load_layout();
 
 	},
@@ -231,10 +234,11 @@ States.VagonState.prototype = {
 				this.piso);
 
 		// Si salio del vagon
-		if (this.emilio.x < 0) {
+		if (this.emilio.x > 2300) {
 			transitions.to('AndenState');
 		}
-		if (isEmilioOnTheFloor) {
+		
+		if (isEmilioOnTheFloor && emilioCanMove) {
 			if (this.cursors.up.isDown) {
 				this.emilio.jump();
 			} else if (this.cursors.right.isDown) {
@@ -273,6 +277,9 @@ States.VagonState.prototype = {
 			}
 
 		}
+	},
+	render: function() {
+    	//game.debug.inputInfo(16, 16);
 	}
 
 };
