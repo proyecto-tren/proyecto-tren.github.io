@@ -76,6 +76,7 @@ function buildPieces(){
         }
     }
     document.onmousedown = shufflePuzzle;
+    document.ontouchstart = onPuzzleClick;
 }
 function shufflePuzzle(){
     _pieces = shuffleArray(_pieces);
@@ -98,6 +99,7 @@ function shufflePuzzle(){
     }
     
     document.onmousedown = onPuzzleClick;
+    document.ontouchstart = onPuzzleClick;
 }
 function onPuzzleClick(e){
     if(e.layerX || e.layerX === 0){
@@ -117,6 +119,9 @@ function onPuzzleClick(e){
         _stage.restore();
         document.onmousemove = updatePuzzle;
         document.onmouseup = pieceDropped;
+
+        document.ontouchmove = updatePuzzle;
+        document.ontouchend = pieceDropped;
     }
 }
 function checkPieceClicked(){
@@ -133,7 +138,7 @@ function checkPieceClicked(){
     }
     return null;
 }
-function updatePuzzle(e){
+function updatePuzzle(e){ console.log(e);
     _currentDropPiece = null;
     if(e.layerX || e.layerX === 0){
         _mouse.x = e.layerX - _canvas.offsetLeft;
@@ -176,6 +181,8 @@ function updatePuzzle(e){
 function pieceDropped(e){
     document.onmousemove = null;
     document.onmouseup = null;
+    document.ontouchmove = null;
+    document.ontouchend = null;
     if(_currentDropPiece !== null){
         var tmp = {xPos:_currentPiece.xPos,yPos:_currentPiece.yPos};
         _currentPiece.xPos = _currentDropPiece.xPos;
@@ -206,6 +213,9 @@ function gameOver(){
     document.onmousedown = null;
     document.onmousemove = null;
     document.onmouseup = null;
+    document.ontouchmove = null;
+    document.ontouchend = null;
+    document.ontouchstart = null;
     _canvas.dispatchEvent(new Event('win'));
     //initPuzzle();
 }

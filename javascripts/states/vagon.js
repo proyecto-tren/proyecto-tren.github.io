@@ -98,6 +98,31 @@ States.VagonState.prototype = {
 					+ Math.floor((Math.random() * 4) + 1)));
 		}
 	},
+	
+	renderSeniora : function(game) {
+		var mesadebajo = game.add.sprite(700, 280, 'mesa-debajo-seniora');
+		this.seniora = game.add.sprite(650, 190, 'seniora');
+		this.seniora.animations.add('play');
+		var mesaencima = game.add.sprite(700, 280, 'mesa-sobre-seniora');
+		
+		this.seniora.animations.play('play',7, true);
+	},
+	
+	renderPy : function(game) {
+		var mesadebajo = game.add.sprite(245, 300, 'mesa-debajo-py');
+		this.py = game.add.sprite(210, 160, 'py');
+		this.py.animations.add('play',[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,14,5,4,3,2,1,0], 10, false);
+		var mesaencima = game.add.sprite(235, 300, 'mesa-sobre-py');
+		this.py.saludo = game.add.audio('saludo-py');
+		this.py.inputEnabled = true;
+		clickeables.add(this.py);
+		this.py.events.onInputDown.add(function(py) {
+			py.animations.play('play');
+			py.saludo.play("", null, 1, false);
+		});
+		
+		
+	},
 
 	renderVideoObjects : function(game) {
 		// Creamos la mamadera con el video
@@ -133,7 +158,7 @@ States.VagonState.prototype = {
 		});
 
 		// Creamos el facturas con el video
-		var copa = game.add.sprite(370, 265, 'copa');
+		var copa = game.add.sprite(370, 275, 'copa');
 		copa.inputEnabled = true;
 		copa.events.onInputDown.add(function(sprite) {
 			new Video(game, 'videos/copa.mp4');
@@ -197,6 +222,10 @@ States.VagonState.prototype = {
 
 		// Our controls.
 		this.cursors = this.input.keyboard.createCursorKeys();
+		
+		States.VagonState.prototype.renderSeniora(this.game);
+		
+		States.VagonState.prototype.renderPy(this.game);
 
 		States.VagonState.prototype.renderVideoObjects(this.game);
 
@@ -224,7 +253,6 @@ States.VagonState.prototype = {
 			States.VagonState.prototype.enableMoscaGame(game);
 		
 		__load_layout();
-
 	},
 
 	update : function() {
@@ -239,12 +267,12 @@ States.VagonState.prototype = {
 		}
 		
 		if (isEmilioOnTheFloor && emilioCanMove) {
-			if (this.cursors.up.isDown) {
+			if (this.cursors.up.isDown || keyboard.isUpPressed()) {
 				this.emilio.jump();
-			} else if (this.cursors.right.isDown) {
+			} else if (this.cursors.right.isDown || keyboard.isRightPressed()) {
 				// Move to the right
 				this.emilio.moveRight();
-			} else if (this.cursors.left.isDown) {
+			} else if (this.cursors.left.isDown || keyboard.isLeftPressed()) {
 				// Move to the left
 				this.emilio.moveLeft();
 			} else {

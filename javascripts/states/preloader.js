@@ -55,6 +55,14 @@ States.PreloaderState.prototype = {
         this.load.image('guardiacontento', 'images/guardia/guardiacontento.png');
         this.load.image('guardiaenojado', 'images/guardia/guardiaenojado.png');
         
+        this.load.image('mesa-sobre-seniora', 'images/seniorabebe/mesa-sobre.png');
+        this.load.image('mesa-debajo-seniora', 'images/seniorabebe/mesa-debajo.png');
+        this.load.spritesheet('seniora', 'images/seniorabebe/seniora.png', 118, 255);
+        
+        this.load.image('mesa-sobre-py', 'images/py/mesa-sobre.png');
+        this.load.image('mesa-debajo-py', 'images/py/mesa-debajo.png');
+        this.load.spritesheet('py', 'images/py/py.png', 177, 305);
+        
         this.load.image('sky', 'images/sky.png');
         this.load.image('locomotora', 'images/tren/locomotora.png');
         this.load.image('emilioEspaldas', 'images/emilio-espaldas.png');
@@ -68,8 +76,7 @@ States.PreloaderState.prototype = {
             this.load.image('numero'+i, 'images/numeros/numero'+ i +'.jpeg');
         }
         
-        this.load.image('fullscreen', 'images/fullscreen.png');
-        this.load.image('normalscreen', 'images/normalscreen.png');
+        this.load.image('arrowkey', 'images/arrowkey.png');
         this.load.image('estacion', 'images/estacion.jpg');
         this.load.image('cartel', 'images/sign.png');
         this.load.image('flecha', 'images/arrow_back.png');
@@ -82,6 +89,7 @@ States.PreloaderState.prototype = {
         this.load.image('tutoVagon01', 'images/pantallas/tuto0102.jpg');
         
         this.load.audio('musica', 'audio/musica.mp3');
+        this.load.audio('saludo-py', 'audio/py/saludo-frances.mp3');
         
         this.game.music = this.add.audio('musica');
 	},
@@ -114,7 +122,7 @@ States.PreloaderState.prototype = {
 
 		if (this.cache.isSoundDecoded('musica') && this.ready == false)
 		{
-	        this.game.music.play("", null, 0.5, true);
+	        this.game.music.play("", null, 0.3, true);
 			this.ready = true;
 //			transitions.to('VagonState');
 			transitions.to('MenuState');

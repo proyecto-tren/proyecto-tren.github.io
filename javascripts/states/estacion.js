@@ -130,18 +130,19 @@ States.EstacionState.prototype = {
 
 		// Emilio solamente se mueve si esta en el piso.
 		if (isEmilioOnTheFloor && emilioCanMove) {
-			if (this.cursors.up.isDown) {
+			if (this.cursors.up.isDown || keyboard.isUpPressed()) {
 				this.emilio.jump();
-			} else if (this.cursors.right.isDown) {
+			} else if (this.cursors.right.isDown || keyboard.isRightPressed()) {
 				// Move to the right
 				this.emilio.moveRight();
-			} else if (this.cursors.left.isDown) {
+			} else if (this.cursors.left.isDown || keyboard.isLeftPressed()) {
 				// Move to the left
 				this.emilio.moveLeft();
 			} else {
 				this.emilio.stand();
 			}
 		}
+		
 	},
 	render: function() {
     	//game.debug.inputInfo(16, 16);

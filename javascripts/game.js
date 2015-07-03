@@ -22,6 +22,7 @@ var puzzleCanvas;
 var isFullScreen = false;
 var transitions;
 var ultimoEstado;
+var keyboard = {};
 /**
  * Puede moverse?
  */
@@ -74,10 +75,48 @@ function __load_layout(){
 		lastState = game.state.current;
 		transitions.to('MenuState');
 	}, this);
+	
+	if(game.device.desktop){
+		keyboard.isDownPressed = function() {return false};
+		keyboard.isUpPressed = function() {return false};
+		keyboard.isLeftPressed = function() {return false};
+		keyboard.isRightPressed = function() {return false};
+	}else{
+		enableKeyboard();
+	}
 
 	hideHeader();
 
 };
+
+function enableKeyboard(){
+	var x = 1000;
+	var y = 600;
+	keyboard.arrowUp = game.add.sprite(100, y-130, 'arrowkey');
+	keyboard.arrowUp.inputEnabled = true;
+	keyboard.arrowUp.fixedToCamera = true;
+	
+	keyboard.arrowDown = game.add.sprite(100, y, 'arrowkey');
+	keyboard.arrowDown.inputEnabled = true;
+	keyboard.arrowDown.fixedToCamera = true;
+	keyboard.arrowDown.scale.y = -1;
+	
+	keyboard.arrowLeft = game.add.sprite(30, y, 'arrowkey');
+	keyboard.arrowLeft.inputEnabled = true;
+	keyboard.arrowLeft.fixedToCamera = true;
+	keyboard.arrowLeft.angle = 270;
+	
+	keyboard.arrowRight = game.add.sprite(245, y-75, 'arrowkey');
+	keyboard.arrowRight.inputEnabled = true;
+	keyboard.arrowRight.fixedToCamera = true;
+	keyboard.arrowRight.angle = 90;
+	
+	keyboard.isDownPressed = function(){ return keyboard.arrowDown.input.pointerDown(game.input.activePointer.id); };
+	keyboard.isUpPressed = function(){ return keyboard.arrowUp.input.pointerDown(game.input.activePointer.id); };
+	keyboard.isLeftPressed = function(){ return keyboard.arrowLeft.input.pointerDown(game.input.activePointer.id); };
+	keyboard.isRightPressed = function(){ return keyboard.arrowRight.input.pointerDown(game.input.activePointer.id); };
+	
+}
 
 function showHeader() {
 	header.visible = true;

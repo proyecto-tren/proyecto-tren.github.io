@@ -116,11 +116,12 @@ States.AndenState.prototype = {
 			    	game.add.tween(this.guardiaenojado).to( { alpha: 1 }, 100, Phaser.Easing.Linear.None, true, 0, -1);
 			    }
 			}
-			if (this.cursors.up.isDown && ganoMinijuegoPuzzle) {
+			if (this.cursors.up.isDown || keyboard.isUpPressed()) {
 				var marcoIzq = 2900;
 				var marcoDer = 3130;
 				
-				if ((this.emilio.x > marcoIzq) && (this.emilio.x < marcoDer)) {
+				if ((this.emilio.x > marcoIzq) && (this.emilio.x < marcoDer)/* && ganoMinijuegoPuzzle*/) {
+					//TODO: SACAR COMENTARIO UNA VEZ EN PRODUCCION.
 					emilioCanMove = false;
 					var emilio = this.emilio;
 					emilio.body.velocity.x = 0;
@@ -144,11 +145,11 @@ States.AndenState.prototype = {
 				} else {
 					this.emilio.jump();
 				}
-			} else if (this.cursors.right.isDown) {
+			} else if (this.cursors.right.isDown || keyboard.isRightPressed()) {
 				this.emilio.shutUp();
 				// Move to the right
 				this.emilio.moveRight();
-			} else if (this.cursors.left.isDown) {
+			} else if (this.cursors.left.isDown || keyboard.isLeftPressed()) {
 				this.emilio.shutUp();
 				// Move to the left
 				this.emilio.moveLeft();
