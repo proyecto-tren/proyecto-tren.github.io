@@ -7,6 +7,7 @@ var Video = function(game, src, x, y){
 
     var flecha = game.add.sprite(0, 0, 'flecha');
     flecha.inputEnabled = true;
+    flecha.fixedToCamera = true;
 	flecha.events.onInputDown.add(function(){
 		document.body.removeChild(v2);
 		emilioCanMove = true;
