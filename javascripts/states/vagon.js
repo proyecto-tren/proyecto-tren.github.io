@@ -1,5 +1,4 @@
 var numDeMoscas = 5;
-var moscasMuertas
 var moscasMuertas;
 var numDeMosquitas = 3;
 var moscas = [];
