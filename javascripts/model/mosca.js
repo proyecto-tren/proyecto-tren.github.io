@@ -1,8 +1,8 @@
 var MoscaVoladora = function(game, sprite){
 	this.x = game.world.randomX;
 	this.y = game.world.randomY;
-	this.minSpeed = -30;
-	this.maxSpeed = 30;
+	this.minSpeed = 80;
+	this.maxSpeed = 150;
 	this.vx = Math.random()*(this.maxSpeed - this.minSpeed+1)-this.minSpeed;
 	this.vy = Math.random()*(this.maxSpeed - this.minSpeed+1)-this.minSpeed;
 	

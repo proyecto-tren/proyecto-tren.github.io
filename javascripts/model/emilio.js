@@ -33,7 +33,7 @@ Emilio = function(game, x, y) {
 
 	emilio.stand = function() {
 		emilio.animations.stop();
-//		emilio.frame = 7; 
+		//emilio.frame = 7; 
 		emilio.body.velocity.x = 0;
 	};
 
@@ -47,6 +47,13 @@ Emilio = function(game, x, y) {
 
 	emilio.isTalking = function() {
 		return emilio.dialog.isTalking()
+	}
+	
+	emilio.reloadAnimations = function () {
+		emilio.loadTexture('emilio');
+		emilio.animations.add('left', [ 0, 1, 2, 3, 4, 5, 6 ], 10, true);
+		emilio.animations.add('right', [ 8, 9, 10, 11, 12, 13, 14 ], 10,
+				true);
 	}
 
 	return emilio;

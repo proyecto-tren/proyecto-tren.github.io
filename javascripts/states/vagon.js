@@ -18,7 +18,10 @@ var timer;
 var tiempoActual;
 // Cuantos segundos le damos al jugador para matar a todas las moscas.
 var tiempoMinijuegoMosca = 30;
+// Posadas ya le dio la lata?
+var vioAnimacionPosadas = false;
 var siluetas = [];
+var placa;
 
 States.VagonState = function(game) {
 };
@@ -32,6 +35,24 @@ States.VagonState.prototype = {
 		tiempoActual = 9;
 		timerText.fixedToCamera = true;
 		timer.start();
+	},
+	
+	mostrarPlaca : function(game) {
+		placa = game.add.sprite(0,0,'placa');
+		placa.fixedToCamera = true;
+		placa.inputEnabled = true;
+		placa.input.priorityID = 998;
+		var flecha = game.add.sprite(0,0,'flecha');
+		flecha.fixedToCamera = true;
+		flecha.inputEnabled = true;
+		flecha.input.priorityID = 999;
+		clickeables.add(flecha);
+		emilioCanMove = false;
+		flecha.events.onInputDown.add(function(flecha){
+			placa.destroy();
+		    flecha.destroy();
+		    emilioCanMove = true;
+		});
 	},
 
 	createMoscas : function(game) {
@@ -104,8 +125,11 @@ States.VagonState.prototype = {
 		this.seniora = game.add.sprite(650, 190, 'seniora');
 		this.seniora.animations.add('play');
 		var mesaencima = game.add.sprite(700, 280, 'mesa-sobre-seniora');
-		
+		clickeables.add(this.seniora);
 		this.seniora.animations.play('play',7, true);
+		this.seniora.events.onInputDown.add(function(seniora) {
+			States.VagonState.prototype.mostrarPlaca(game);
+		});
 	},
 	
 	renderPy : function(game) {
@@ -122,6 +146,20 @@ States.VagonState.prototype = {
 		});
 		
 		
+	},
+	
+	renderPosadas : function(game) {
+		game.posadas = game.add.sprite(1415, 160, 'posadas');
+		game.posadas.animations.add('terminar',[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,
+		                                      19,20,21,22,23,24,25,26,27,28,29,30,31,10,9,8,7,6,
+		                                      5,4,3,2,1,0], 10, false);
+		game.posadas.animations.add('noterminar',[0,1,0,1,0],5,false);
+		game.audiowin = game.add.audio('posadaswin');
+		
+		game.posadas.estaCercaDe = function(sprite){
+			var distancia = (game.posadas.x - sprite.x);
+			return ((distancia > -5) && (distancia < 5));
+		}
 	},
 
 	renderVideoObjects : function(game) {
@@ -228,6 +266,8 @@ States.VagonState.prototype = {
 		States.VagonState.prototype.renderPy(this.game);
 
 		States.VagonState.prototype.renderVideoObjects(this.game);
+		
+		States.VagonState.prototype.renderPosadas(this.game);
 
 		// Creamos a Emilio
 		this.emilio = new Emilio(this.game, 2300);
@@ -284,7 +324,7 @@ States.VagonState.prototype = {
 			if (mosca.position.x < 35) {
 				mosca.scale.x = 1;
 			}
-			if (mosca.position.x > 1565) {
+			if (mosca.position.x > 2415) {
 				mosca.scale.x = -1;
 			}
 		});
@@ -293,7 +333,7 @@ States.VagonState.prototype = {
 			if (mosca.position.x < 35) {
 				mosca.scale.x = 1;
 			}
-			if (mosca.position.x > 1565) {
+			if (mosca.position.x > 2415) {
 				mosca.scale.x = -1;
 			}
 		}, this, false);
@@ -304,6 +344,25 @@ States.VagonState.prototype = {
 				timerText.loadTexture('numero' + tiempo);
 			}
 
+		};
+		
+		if (game.posadas.estaCercaDe(this.emilio) && !vioAnimacionPosadas){
+			if(ganoMinijuegoMosca){
+				vioAnimacionPosadas  = true;
+				emilioCanMove = false;
+				this.emilio.loadTexture('emilioEspaldas');
+				this.emilio.stand();
+				game.posadas.animations.play('terminar');
+				game.audiowin.play();
+				game.posadas.events.onAnimationComplete.add(function(){
+					addCollectable('lata');
+					showHeader();
+					emilioCanMove = true;
+					this.emilio.reloadAnimations();
+				}, this);
+			}else{
+				game.posadas.animations.play('noterminar');
+			}
 		}
 	},
 	render: function() {

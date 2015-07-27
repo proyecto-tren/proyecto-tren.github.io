@@ -133,7 +133,7 @@ function hideHeader(){
 addCollectable = function(key){
 	collectables.members.push(key);
 	if (header.visible){
-		var sprite = game.add.sprite(collectables.offset, 15, key);
+		var sprite = game.add.sprite(collectables.offset, 7, key);
 		collectables.offset += (15 + sprite.width);
 		collectables.sprites.push(sprite);
 	}
@@ -141,8 +141,9 @@ addCollectable = function(key){
 
 showCollectables = function() {
 	collectables.offset = 320;
+	console.log(collectables);
 	collectables.members.forEach(function (element, index, array) {
-		var sprite = game.add.sprite(collectables.offset, 15, element);
+		var sprite = game.add.sprite(collectables.offset, 7, element);
 		sprite.fixedToCamera = true;
 		collectables.offset += (15 + sprite.width);
 		collectables.sprites.push(sprite);

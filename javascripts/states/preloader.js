@@ -43,6 +43,9 @@ States.PreloaderState.prototype = {
         this.load.image('mamadera', 'images/mamadera.png');
         this.load.image('facturas', 'images/facturas.png');
         this.load.image('copa', 'images/copa.png');
+        this.load.image('lata', 'images/lata.png');
+
+        this.load.image('placa', 'images/pantallas/placa-inmigracion.png');
         
         this.load.image('minimosca', 'images/minimosca.png');
         this.load.image('mosca1', 'images/moscas/mosca1.png');
@@ -58,6 +61,7 @@ States.PreloaderState.prototype = {
         this.load.image('mesa-sobre-seniora', 'images/seniorabebe/mesa-sobre.png');
         this.load.image('mesa-debajo-seniora', 'images/seniorabebe/mesa-debajo.png');
         this.load.spritesheet('seniora', 'images/seniorabebe/seniora.png', 118, 255);
+        this.load.spritesheet('posadas', 'images/posadas.png', 297, 297);
         
         this.load.image('mesa-sobre-py', 'images/py/mesa-sobre.png');
         this.load.image('mesa-debajo-py', 'images/py/mesa-debajo.png');
@@ -89,6 +93,7 @@ States.PreloaderState.prototype = {
         this.load.image('tutoVagon01', 'images/pantallas/tuto0102.jpg');
         
         this.load.audio('musica', 'audio/musica.mp3');
+        this.load.audio('posadaswin', 'audio/posadaswin.mp3');
         this.load.audio('saludo-py', 'audio/py/saludo-frances.mp3');
         
         this.game.music = this.add.audio('musica');
