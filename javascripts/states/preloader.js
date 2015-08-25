@@ -15,6 +15,8 @@ States.PreloaderState.prototype = {
 		this.background = this.add.sprite(0, 0, 'preloaderBackground');
 		this.preloadBar = this.add.sprite(185, 400, 'preloaderBar');
 
+		this.game.add.text(100, 100, "Prototipo v0.35");
+
 		//	This sets the preloadBar sprite as a loader sprite.
 		//	What that does is automatically crop the sprite from 0 to full-width
 		//	as the files below are loaded in.

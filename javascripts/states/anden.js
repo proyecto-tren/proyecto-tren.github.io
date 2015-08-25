@@ -120,7 +120,7 @@ States.AndenState.prototype = {
 				var marcoIzq = 2900;
 				var marcoDer = 3130;
 				
-				if ((this.emilio.x > marcoIzq) && (this.emilio.x < marcoDer)/* && ganoMinijuegoPuzzle*/) {
+				if ((this.emilio.x > marcoIzq) && (this.emilio.x < marcoDer) && ganoMinijuegoPuzzle) {
 					//TODO: SACAR COMENTARIO UNA VEZ EN PRODUCCION.
 					emilioCanMove = false;
 					var emilio = this.emilio;
