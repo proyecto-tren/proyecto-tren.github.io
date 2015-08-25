@@ -21,6 +21,7 @@ var tiempoMinijuegoMosca = 30;
 var vioAnimacionPosadas = false;
 var siluetas = [];
 var placa;
+var wall;
 
 States.VagonState = function(game) {
 };
@@ -73,6 +74,7 @@ States.VagonState.prototype = {
 					timer = null;
 					timerText.destroy();
 					alert("\xa1Has salvado el vag\xf3n!");
+					wall.kill();
 				}
 			});
 			moscas.push(mosca);
@@ -95,6 +97,9 @@ States.VagonState.prototype = {
 								.addEventListener(
 										'end',
 										function() {
+											wall = new Pared(game, 'pared', 0, 0);
+											wall.scale.setTo(500000000, 50000000000);
+											wall.inputEnabled = true;
 											States.VagonState.prototype
 													.createTimer(
 															game,
