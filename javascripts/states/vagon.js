@@ -5,7 +5,6 @@ var moscas = [];
 var mosquitas = [];
 var scoreText;
 var timerText;
-var minimosca;
 // Variable que controla si ya vio el video de la mamadera.
 var vioMamadera = false;
 // Variable que controla si ya vio el video de las facturas.
@@ -105,8 +104,7 @@ States.VagonState.prototype = {
 															game,
 															function() {
 																alert("Las moscas han tomado el control del vag\xf3n :(\nInt\xe9ntalo nuevamente.");
-																game.state
-																		.restart();
+																transitions.to("VagonState");
 															});
 											minimosca.kill();
 											States.VagonState.prototype
@@ -254,6 +252,8 @@ States.VagonState.prototype = {
 	},
 
 	create : function() {
+		mosquitas = [];
+		
 		emilioCanMove = true;
 		
 		this.physics.startSystem(Phaser.Physics.ARCADE);
@@ -295,7 +295,6 @@ States.VagonState.prototype = {
 
 		if ((score >= 100) && (!ganoMinijuegoMosca))
 			States.VagonState.prototype.enableMoscaGame(game);
-		
 		__load_layout();
 	},
 

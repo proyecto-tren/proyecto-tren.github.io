@@ -23,6 +23,8 @@ var isFullScreen = false;
 var transitions;
 var ultimoEstado;
 var keyboard = {};
+
+var minimosca = null;
 /**
  * Puede moverse?
  */
