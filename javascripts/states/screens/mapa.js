@@ -9,11 +9,9 @@ States.Map.prototype = {
  		this.add.sprite(0, 0, 'mapa');
 
 		this.backButton = this.add.button(10, 10, 'flecha', this.back, this);
-		this.tutoTicket01Button = this.add.button(200, 385, 'menulink', this.showTutoTicket01, this);
-		this.tutoTicket01Button.scale.setTo('0.3', '0.6');
+		this.tutoTicket01Button = this.add.button(200, 425, 'link1', this.showTutoTicket01, this);
 		
-		this.tutoVagon01Button = this.add.button(205, 470, 'menulink', this.showTutoVagon01, this);
-		this.tutoVagon01Button.scale.setTo('0.3', '0.6');
+		this.tutoVagon01Button = this.add.button(300, 425, 'link2', this.showTutoVagon01, this);
 		
 		clickeables.add(this.backButton, this.tutoTicket01Button, this.tutoVagon01Button);
 	},

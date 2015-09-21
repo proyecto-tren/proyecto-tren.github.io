@@ -23,11 +23,12 @@ States.PreloaderState.prototype = {
 		this.load.setPreloadSprite(this.preloadBar);
 		
 		//  Load the images from the menu
-		this.load.image('acercade', 'images/pantallas/acercade.jpg');
+		this.load.image('acercade', 'images/pantallas/acercade.png');
 		this.load.image('comojugar', 'images/pantallas/comojugar.jpg');
 		this.load.image('menulink', 'images/pantallas/link.png');
 		this.load.image('menubkgnd', 'images/pantallas/menu.jpg');
 		this.load.image('selected', 'images/pantallas/seleccion.png');
+		this.load.image('comenzar', 'images/pantallas/comenzar.jpg');
 		this.load.image('header', 'images/pantallas/header.jpg');
 
 		//	Here we load the rest of the assets our game needs.
@@ -89,10 +90,11 @@ States.PreloaderState.prototype = {
         this.load.image('silenciador', 'images/pantallas/silenciador.png');
         this.load.image('silenciador-cross', 'images/pantallas/silenciador-cross.png');
         this.load.image('comojugar', 'images/pantallas/comojugar.jpg');
-        this.load.image('acercade', 'images/pantallas/acercade.jpg');
-        this.load.image('mapa', 'images/pantallas/mapa.jpg');
+        this.load.image('mapa', 'images/pantallas/mapa.png');
         this.load.image('tutoTicket01', 'images/pantallas/tuto0101.jpg');
         this.load.image('tutoVagon01', 'images/pantallas/tuto0102.jpg');
+        this.load.image('link1', 'images/pantallas/nivel1.png');
+        this.load.image('link2', 'images/pantallas/nivel2.png');
         
         this.load.audio('musica', 'audio/musica.mp3');
         this.load.audio('posadaswin', 'audio/posadaswin.mp3');
@@ -104,7 +106,7 @@ States.PreloaderState.prototype = {
 	create: function () {
 		transitions = game.plugins.add(Phaser.Plugin.StateTransition);
 		transitions.settings({
-			duration: 1000,
+			duration: 2000,
 			properties: {
 				alpha: 0,
 				scale: {
@@ -132,7 +134,7 @@ States.PreloaderState.prototype = {
 	        this.game.music.play("", null, 0.3, true);
 			this.ready = true;
 //			transitions.to('VagonState');
-			transitions.to('MenuState');
+			transitions.to('AboutState');
 		}
 
 	}

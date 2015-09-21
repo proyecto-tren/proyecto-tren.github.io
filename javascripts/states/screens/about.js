@@ -8,7 +8,13 @@ States.About.prototype = {
 
  		this.add.sprite(0, 0, 'acercade');
 
-		this.backButton = this.add.button(10, 10, 'flecha', this.back, this);
+		if(ultimoEstado == 'PreloaderState') {
+			this.backButton = this.add.button(800, 10, 'flecha', this.back, this);
+
+			this.backButton.scale.x = -1;
+		}else{
+			this.backButton = this.add.button(10, 10, 'flecha', this.back, this);
+		}
 		
 		clickeables.add(this.backButton);
 	},

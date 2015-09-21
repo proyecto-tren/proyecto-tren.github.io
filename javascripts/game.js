@@ -16,7 +16,7 @@ var ganoMinijuegoMosca = false;
 var ganoMinijuegoPuzzle = false;
 var clickeables = {};
 var menuIcon;
-var lastState = "AndenState";
+var lastState = "BeginState";
 var header;
 var puzzleCanvas;
 var isFullScreen = false;
@@ -143,7 +143,6 @@ addCollectable = function(key){
 
 showCollectables = function() {
 	collectables.offset = 320;
-	console.log(collectables);
 	collectables.members.forEach(function (element, index, array) {
 		var sprite = game.add.sprite(collectables.offset, 7, element);
 		sprite.fixedToCamera = true;
