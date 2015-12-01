@@ -15,7 +15,7 @@ States.PreloaderState.prototype = {
 		this.background = this.add.sprite(0, 0, 'preloaderBackground');
 		this.preloadBar = this.add.sprite(185, 400, 'preloaderBar');
 
-		this.game.add.text(100, 100, "Prototipo v0.35");
+		this.game.add.text(100, 100, "Prototipo v0.5");
 
 		//	This sets the preloadBar sprite as a loader sprite.
 		//	What that does is automatically crop the sprite from 0 to full-width
@@ -41,7 +41,7 @@ States.PreloaderState.prototype = {
         //this.load.image('locomotora', 'images/tren/locomotora.png');
         this.load.image('trenyfondo', 'images/tren/trenyfondo.png');
         
-        this.load.spritesheet('emilio', 'images/emilio-caminando.png', 169, 323);
+        this.load.spritesheet('emilio', 'images/emilio-caminando.png', 165, 323);
         this.load.spritesheet('vendedor', 'images/vendedor.png', 205, 376);
         this.load.image('mamadera', 'images/mamadera.png');
         this.load.image('facturas', 'images/facturas.png');
@@ -133,7 +133,7 @@ States.PreloaderState.prototype = {
 		{
 	        this.game.music.play("", null, 0.3, true);
 			this.ready = true;
-//			transitions.to('VagonState');
+//			transitions.to('EstacionState');
 			transitions.to('AboutState');
 		}
 

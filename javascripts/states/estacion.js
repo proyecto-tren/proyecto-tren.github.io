@@ -107,13 +107,13 @@ States.EstacionState.prototype = {
 														.say(
 																'Muy bien! Gracias!\nToma esto como\nrecompensa.',
 																true);
-												emilio.position.x -=5;
+												emilio.position.x +=25;
 												ganoMinijuegoPuzzle = true;
 											}, false);
 							puzzle.addEventListener("lose", function() {
 								vendedor.frame = 1;
 								emilioCanMove = true;
-								emilio.position.x -=5;
+								emilio.position.x +=25;
 								vendedor.dialog.say(
 										'No puedes?\nIntentalo\nnuevamente.',
 										true);
@@ -122,7 +122,7 @@ States.EstacionState.prototype = {
 							vendedor.frame = 1;
 							vendedor.dialog.say('Que lastima :(\nAdios!', true);
 							emilioCanMove = true;
-							emilio.position.x -=5;
+							emilio.position.x +=25;
 						}
 					}, 500);
 
