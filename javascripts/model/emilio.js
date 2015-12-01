@@ -10,24 +10,26 @@ Emilio = function(game, x, y) {
 	game.physics.arcade.enable(emilio);
 
 	// Our two animations, walking left and right.
-	emilio.animations.add('left', [ 0, 1, 2, 3, 4, 5, 6 ], 10, true);
-	emilio.animations.add('right', [ 8, 9, 10, 11, 12, 13, 14 ], 10,
-			true);
+	emilio.animations.add('move', [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ], 15, true);
 
 	emilio.body.gravity.y = 500;
 	emilio.body.collideWorldBounds = false;
-
+	emilio.anchor.setTo(0.5,0.5);
+	
 	emilio.jump = function() {
 		emilio.body.velocity.y = -250;
 	};
 
 	emilio.moveLeft = function() {
-		emilio.animations.play('left');
+		if (emilio.scale.x > 0 ) emilio.scale.x *=  -1;
+		
+		emilio.animations.play('move');
 		emilio.body.velocity.x = -400;
 	};
 
 	emilio.moveRight = function() {
-		emilio.animations.play('right');
+		if (emilio.scale.x < 0 ) emilio.scale.x *=  -1;
+		emilio.animations.play('move');
 		emilio.body.velocity.x = 400;
 	};
 
