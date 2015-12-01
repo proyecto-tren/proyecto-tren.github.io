@@ -23,6 +23,7 @@ var isFullScreen = false;
 var transitions;
 var ultimoEstado;
 var keyboard = {};
+var emilioSprite = 'emilio'
 
 var minimosca = null;
 /**

@@ -2,9 +2,9 @@ Emilio = function(game, x, y) {
 	if (x === undefined)
 		x = 100;
 	if (y === undefined)
-		y = 200;
+		y = 400;
 	// The player and its settings
-	var emilio = game.add.sprite(x, y, 'emilio');
+	var emilio = game.add.sprite(x, y, emilioSprite);
 	emilio.dialog = new Dialog(game, emilio);
 	// We need to enable physics on the player
 	game.physics.arcade.enable(emilio);
@@ -15,6 +15,20 @@ Emilio = function(game, x, y) {
 	emilio.body.gravity.y = 500;
 	emilio.body.collideWorldBounds = false;
 	emilio.anchor.setTo(0.5,0.5);
+	
+	emilio.darBoleto = function(){
+		if (emilioSprite != 'emilio-con-boleto'){
+			emilioSprite = 'emilio-con-boleto';
+			emilio.loadTexture('emilio-con-boleto');
+		}
+	}
+	
+	emilio.quitarBoleto = function() {
+		if (emilioSprite != 'emilio'){
+			emilioSprite = 'emilio';
+			emilio.loadTexture('emilio');
+		}
+	}
 	
 	emilio.jump = function() {
 		emilio.body.velocity.y = -250;

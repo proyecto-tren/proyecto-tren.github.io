@@ -107,8 +107,9 @@ States.EstacionState.prototype = {
 														.say(
 																'Muy bien! Gracias!\nToma esto como\nrecompensa.',
 																true);
-												emilio.position.x +=25;
+												emilio.position.x +=45;
 												ganoMinijuegoPuzzle = true;
+												emilio.darBoleto();
 											}, false);
 							puzzle.addEventListener("lose", function() {
 								vendedor.frame = 1;

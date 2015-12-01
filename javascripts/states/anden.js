@@ -92,7 +92,7 @@ States.AndenState.prototype = {
 		this.camera.follow(this.emilio);
 
 		this.pared = new Pared(this, 'pared', bounds);
-
+		
 		__load_layout();
 	},
 
@@ -111,6 +111,7 @@ States.AndenState.prototype = {
 			    game.add.tween(this.guardia).to( { alpha: 0 }, 100, Phaser.Easing.Linear.Out, true, 0, -1);
 			    
 			    if (ganoMinijuegoPuzzle) {
+			    	this.emilio.quitarBoleto();
 			    	game.add.tween(this.guardiacontento).to( { alpha: 1 }, 100, Phaser.Easing.Linear.None, true, 0, -1);
 			    }else{
 			    	game.add.tween(this.guardiaenojado).to( { alpha: 1 }, 100, Phaser.Easing.Linear.None, true, 0, -1);
