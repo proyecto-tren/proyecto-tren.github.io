@@ -33,7 +33,7 @@ States.PreloaderState.prototype = {
 
 		//	Here we load the rest of the assets our game needs.
 		this.load.image('menuIcon', 'images/menu-icon.png');
-		this.load.image('ticket', 'images/ticket.jpg');
+		this.load.image('ticket', 'images/ticket.png');
 		this.load.image('dialog', 'images/dialog.png');
 		this.load.image('vagon', 'images/vagon.png');
         this.load.image('pared', 'images/pared.png');
@@ -42,6 +42,7 @@ States.PreloaderState.prototype = {
         this.load.image('trenyfondo', 'images/tren/trenyfondo.png');
         
         this.load.spritesheet('emilio', 'images/emilio-caminando.png', 165, 323);
+        this.load.spritesheet('emilio-con-boleto', 'images/emilio-con-boleto.png', 165, 323);
         this.load.spritesheet('vendedor', 'images/vendedor.png', 205, 376);
         this.load.image('mamadera', 'images/mamadera.png');
         this.load.image('facturas', 'images/facturas.png');
