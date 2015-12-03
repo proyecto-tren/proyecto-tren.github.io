@@ -152,8 +152,11 @@ States.VagonState.prototype = {
 	
 	renderPosadas : function(game) {
 		game.posadas = game.add.sprite(1415, 160, 'posadas');
-		game.posadas.animations.add('terminar',[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,
+		/*game.posadas.animations.add('terminar',[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,
 		                                      19,20,21,22,23,24,25,26,27,28,29,30,31,10,9,8,7,6,
+		                                      5,4,3,2,1,0], 10, false);*/
+		game.posadas.animations.add('terminar',[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,
+		                                      19,20,21,10,9,8,7,6,
 		                                      5,4,3,2,1,0], 10, false);
 		game.posadas.animations.add('noterminar',[0,1,0,1,0],5,false);
 		game.audiowin = game.add.audio('posadaswin');
